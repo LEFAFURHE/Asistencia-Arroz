@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronograma Asistencia Técnica Integral – Cultivo de Arroz | AMTEC</title>
+  <meta name="description" content="Cronograma detallado de asistencia técnica integral para el cultivo de arroz bajo metodología AMTEC, incluyendo etapas fenológicas, monitoreos, jornales y sistema de riego.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-oscuro: #1a4a2e;
+      --verde-medio: #2d7a4f;
+      --verde-claro: #4caf75;
+      --verde-lime: #8bc34a;
+      --amarillo: #f9c74f;
+      --naranja: #f8961e;
+      --rojo: #e63946;
+      --azul: #219ebc;
+      --azul-oscuro: #0a3d5c;
+      --marron: #6b4226;
+      --bg-dark: #0d1f16;
+      --bg-card: #112a1c;
+      --bg-card2: #162e20;
+      --text-primary: #e8f5e9;
+      --text-secondary: #a5d6a7;
+      --text-muted: #6fa87a;
+      --border: #2d5a3d;
+      --shadow: rgba(0,0,0,0.4);
+      --grad-header: linear-gradient(135deg, #0d1f16 0%, #1a4a2e 50%, #0a3d5c 100%);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); min-height: 100vh; line-height: 1.6; }
+
+    .header { background: var(--grad-header); padding: 48px 40px 40px; text-align: center; position: relative; overflow: hidden; border-bottom: 2px solid var(--verde-medio); }
+    .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(45,122,79,.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(10,61,92,.25) 0%, transparent 60%); }
+    .header-badge { display: inline-block; background: rgba(76,175,117,.15); border: 1px solid var(--verde-claro); color: var(--verde-claro); padding: 6px 20px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; position: relative; }
+    .header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(24px, 4vw, 44px); font-weight: 800; color: #fff; line-height: 1.15; position: relative; margin-bottom: 12px; }
+    .header h1 span { color: var(--verde-claro); }
+    .header .subtitle { font-size: 15px; color: var(--text-secondary); max-width: 700px; margin: 0 auto 28px; position: relative; }
+    .header-meta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .meta-chip { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); padding: 7px 16px; border-radius: 30px; font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+
+    .nav-tabs { background: var(--bg-card); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; padding: 0 16px; gap: 2px; position: sticky; top: 0; z-index: 100; }
+    .nav-tabs::-webkit-scrollbar { height: 3px; }
+    .nav-tabs::-webkit-scrollbar-thumb { background: var(--verde-medio); border-radius: 2px; }
+    .tab-btn { padding: 14px 18px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all .25s; font-family: 'Inter', sans-serif; }
+    .tab-btn:hover { color: var(--text-secondary); }
+    .tab-btn.active { color: var(--verde-claro); border-bottom-color: var(--verde-claro); }
+
+    .main { max-width: 1400px; margin: 0 auto; padding: 36px 20px 60px; }
+    .section { display: none; animation: fadeIn .3s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+    .section-title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .section-title span { color: var(--verde-claro); }
+    .section-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; max-width: 800px; }
+
+    .fenologia-phases { display: flex; gap: 0; border-radius: 14px; overflow: hidden; margin-bottom: 36px; box-shadow: 0 8px 32px var(--shadow); }
+    .phase-block { flex: 1; padding: 20px 14px; text-align: center; cursor: pointer; transition: all .25s; }
+    .phase-block:hover { filter: brightness(1.15); transform: translateY(-2px); }
+    .phase-block.vegetativa { background: linear-gradient(180deg, #1b5e20, #2e7d32); }
+    .phase-block.reproductiva { background: linear-gradient(180deg, #4a148c, #6a1b9a); }
+    .phase-block.maduracion { background: linear-gradient(180deg, #e65100, #bf360c); }
+    .phase-block .phase-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .8; margin-bottom: 4px; }
+    .phase-block .phase-name { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .phase-block .phase-days { font-size: 11px; color: rgba(255,255,255,.75); }
+
+    .etapa-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all .25s; margin-bottom: 12px; }
+    .etapa-card:hover { border-color: var(--verde-claro); box-shadow: 0 4px 20px rgba(76,175,117,.12); }
+    .etapa-header { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; padding: 14px 18px; cursor: pointer; gap: 14px; }
+    .etapa-num { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; flex-shrink: 0; }
+    .etapa-info .etapa-name { font-weight: 700; font-size: 15px; color: #fff; }
+    .etapa-info .etapa-period { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .etapa-toggle { font-size: 18px; color: var(--verde-claro); transition: transform .25s; }
+    .etapa-card.open .etapa-toggle { transform: rotate(180deg); }
+    .etapa-body { display: none; padding: 0 18px 18px; border-top: 1px solid var(--border); }
+    .etapa-card.open .etapa-body { display: block; }
+    .etapa-grid-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; }
+    .info-box { background: var(--bg-dark); border-radius: 10px; padding: 12px; }
+    .info-box .ib-title { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .info-box ul { list-style: none; }
+    .info-box ul li { font-size: 12px; color: var(--text-secondary); padding: 3px 0; padding-left: 14px; position: relative; }
+    .info-box ul li::before { content: '▸'; position: absolute; left: 0; color: var(--verde-claro); }
+
+    .crono-wrapper { overflow-x: auto; border-radius: 12px; box-shadow: 0 8px 32px var(--shadow); margin-bottom: 36px; }
+    .crono-table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    .crono-table thead tr { background: linear-gradient(135deg, #1a4a2e, #0a3d5c); }
+    .crono-table thead th { padding: 12px 14px; font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #a5d6a7; border: 1px solid rgba(255,255,255,.1); text-align: left; white-space: nowrap; }
+    .crono-table tbody tr { background: var(--bg-card); border-bottom: 1px solid var(--border); transition: background .2s; }
+    .crono-table tbody tr:nth-child(even) { background: var(--bg-card2); }
+    .crono-table tbody tr:hover { background: rgba(76,175,117,.08); }
+    .crono-table tbody td { padding: 10px 14px; font-size: 12px; color: var(--text-secondary); border: 1px solid var(--border); vertical-align: top; }
+    .crono-table .td-bold { font-weight: 700; color: #fff; }
+    .crono-table .td-ddg { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--verde-claro); }
+    .td-phase { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+    .ph-veg { background: rgba(46,125,50,.3); color: #81c784; border: 1px solid #2e7d32; }
+    .ph-rep { background: rgba(106,27,154,.3); color: #ce93d8; border: 1px solid #6a1b9a; }
+    .ph-mad { background: rgba(191,54,12,.3); color: #ffab91; border: 1px solid #bf360c; }
+    .ph-pre { background: rgba(10,61,92,.4); color: #81d4fa; border: 1px solid #0a3d5c; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; margin: 2px; }
+    .tag-j { background: rgba(249,199,79,.15); color: var(--amarillo); border: 1px solid rgba(249,199,79,.3); }
+    .tag-i { background: rgba(230,57,70,.15); color: #ff8a80; border: 1px solid rgba(230,57,70,.3); }
+    .tag-e { background: rgba(33,158,188,.15); color: #80d8ff; border: 1px solid rgba(33,158,188,.3); }
+    .tag-m { background: rgba(139,195,74,.15); color: #ccff90; border: 1px solid rgba(139,195,74,.3); }
+    .tag-r { background: rgba(33,158,188,.2); color: #81d4fa; border: 1px solid rgba(33,158,188,.4); }
+
+    .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 36px; }
+    .monitor-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all .25s; }
+    .monitor-card:hover { border-color: var(--azul); box-shadow: 0 4px 20px rgba(33,158,188,.12); transform: translateY(-2px); }
+    .monitor-card-header { padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+    .monitor-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .ic-insect { background: rgba(230,57,70,.2); }
+    .ic-disease { background: rgba(33,158,188,.2); }
+    .ic-weed { background: rgba(139,195,74,.2); }
+    .mc-name { font-weight: 700; color: #fff; font-size: 14px; }
+    .mc-sci { font-size: 11px; color: var(--text-muted); font-style: italic; }
+    .monitor-card-body { padding: 0 18px 18px; }
+    .threshold-bar { background: var(--bg-dark); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+    .tb-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+    .tb-value { font-size: 13px; font-weight: 700; color: var(--amarillo); }
+    .tb-method { font-size: 11px; color: var(--text-secondary); margin-top: 3px; }
+    .monitor-stages { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+    .jornales-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .jornal-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; transition: all .25s; }
+    .jornal-stat:hover { border-color: var(--amarillo); }
+    .jornal-stat .js-num { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 800; color: var(--amarillo); }
+    .jornal-stat .js-label { font-size: 12px; color: var(--text-primary); margin-top: 4px; font-weight: 600; }
+    .jornal-stat .js-sub { font-size: 11px; color: var(--text-muted); }
+
+    .riego-diagram { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .riego-steps { display: flex; flex-direction: column; gap: 14px; }
+    .riego-step { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+    .rs-num { width: 40px; height: 40px; border-radius: 50%; background: var(--azul); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .rs-content .rs-title { font-weight: 700; color: #fff; font-size: 14px; margin-bottom: 4px; }
+    .rs-content .rs-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+    .cards-3col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 28px; }
+    .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: all .25s; }
+    .info-card:hover { border-color: var(--verde-claro); }
+    .info-card .ic-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .info-card .ic-icon { font-size: 24px; }
+    .info-card .ic-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px; color: #fff; }
+    .info-card .ic-sub { font-size: 11px; color: var(--text-muted); }
+    .info-card ul { list-style: none; }
+    .info-card ul li { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.05); font-size: 12px; color: var(--text-secondary); padding-left: 15px; position: relative; }
+    .info-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--verde-claro); font-weight: 700; }
+    .info-card ul li:last-child { border-bottom: none; }
+
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; padding: 14px 18px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 24px 36px; text-align: center; color: var(--text-muted); font-size: 12px; }
+    footer strong { color: var(--verde-claro); }
+
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--verde-medio); border-radius: 4px; }
+
+    h3.sh { color: #fff; margin-bottom: 16px; font-family: 'Outfit',sans-serif; font-size: 18px; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-badge">&#127807; Metodolog&#237;a AMTEC &#8211; Fedearroz</div>
+  <h1>Cronograma de <span>Asistencia T&#233;cnica Integral</span><br>Cultivo de Arroz</h1>
+  <p class="subtitle">Gu&#237;a t&#233;cnica por etapas fenol&#243;gicas &#183; Monitoreo de plagas, enfermedades y malezas &#183; Jornales &#183; Riego con manguera 2&#8243; y motor 16L</p>
+  <div class="header-meta">
+    <div class="meta-chip">&#128197; DDG + D&#237;as Calendario</div>
+    <div class="meta-chip">&#128167; Riego Motor 16L + Manguera 2&#8243;</div>
+    <div class="meta-chip">&#129693; Bomba Manual 20L</div>
+    <div class="meta-chip">&#128119; Labores 100% Manuales</div>
+    <div class="meta-chip">&#127807; Variedad 105&#8211;120 d&#237;as</div>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('tab-fenologia',this)">&#127807; Fenolog&#237;a</button>
+  <button class="tab-btn" onclick="showTab('tab-cronograma',this)">&#128203; Cronograma General</button>
+  <button class="tab-btn" onclick="showTab('tab-suelos',this)">&#127959; Preparaci&#243;n Suelos</button>
+  <button class="tab-btn" onclick="showTab('tab-monitoreos',this)">&#128269; Monitoreos</button>
+  <button class="tab-btn" onclick="showTab('tab-riego',this)">&#128167; Riego</button>
+  <button class="tab-btn" onclick="showTab('tab-jornales',this)">&#128119; Jornales</button>
+  <button class="tab-btn" onclick="showTab('tab-insumos',this)">&#129514; Insumos y Fertil.</button>
+  <button class="tab-btn" onclick="showTab('tab-sig',this)">&#128752; Teledetecci&#243;n y SIG</button>
+</nav>
+
+<main class="main">
+
+  <!-- TAB 1: FENOLOGIA -->
+  <section id="tab-fenologia" class="section active">
+    <h2 class="section-title">Etapas <span>Fenol&#243;gicas</span> del Cultivo de Arroz</h2>
+    <p class="section-desc">El ciclo del arroz comprende tres fases principales (Vegetativa, Reproductiva y Maduraci&#243;n) con 9 estad&#237;os. Tiempos en DDG para variedades de 105 y 120 d&#237;as.</p>
+
+    <div class="fenologia-phases">
+      <div class="phase-block vegetativa">
+        <div class="phase-label">Fase 1</div>
+        <div class="phase-name">&#127807; Vegetativa</div>
+        <div class="phase-days">DDG 0&#8211;47 | 40&#8211;50 d&#237;as</div>
+      </div>
+      <div class="phase-block reproductiva">
+        <div class="phase-label">Fase 2</div>
+        <div class="phase-name">&#127864; Reproductiva</div>
+        <div class="phase-days">DDG 47&#8211;84 | 30&#8211;35 d&#237;as</div>
+      </div>
+      <div class="phase-block maduracion">
+        <div class="phase-label">Fase 3</div>
+        <div class="phase-name">&#127806; Maduraci&#243;n</div>
+        <div class="phase-days">DDG 84&#8211;120 | 30&#8211;35 d&#237;as</div>
+      </div>
+    </div>
+
+    <h3 class="sh">9 Estad&#237;os Fenol&#243;gicos con DDG y D&#237;as Calendario</h3>
+
+    <div class="etapa-card" id="e0">
+      <div class="etapa-header" onclick="toggleE('e0')">
+        <div class="etapa-num" style="background:rgba(255,255,255,.1)">E0</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Germinaci&#243;n y Emergencia</div>
+          <div class="etapa-period">DDG 0&#8211;5 | D&#237;as 1&#8211;5 | <span class="td-phase ph-veg">Vegetativa</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Absorci&#243;n de agua por la semilla (imbibi&#243;n)</li><li>Ruptura del pericarpio y emergencia de rad&#237;cula</li><li>Aparici&#243;n del cole&#243;ptilo en superficie</li><li>Temperatura &#243;ptima 20&#8211;35&#176;C</li></ul></div>
+          <div class="info-box"><div class="ib-title">Puntos Cr&#237;ticos</div><ul><li>Humedad constante del suelo</li><li>No encharcamiento extremo</li><li>Protecci&#243;n contra aves y roedores</li><li>Evitar desecamiento de la semilla</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>Riego de establecimiento (l&#225;mina 2&#8211;3 cm)</li><li>Vigilancia diaria del lote</li><li>Registro % germinaci&#243;n al d&#237;a 5</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e1">
+      <div class="etapa-header" onclick="toggleE('e1')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#2e7d32,#4caf50)">E1</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Pl&#225;ntula</div>
+          <div class="etapa-period">DDG 5&#8211;14 | D&#237;as 6&#8211;14 | <span class="td-phase ph-veg">Vegetativa</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Expansi&#243;n de primeras hojas verdaderas</li><li>Desarrollo sistema radicular primario</li><li>Alta susceptibilidad a estr&#233;s h&#237;drico</li><li>Altura aprox. 10&#8211;15 cm</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo</div><ul><li>Trips, Sogata, gorgojo del agua</li><li>Manchas foliares iniciales</li><li>Conteo de plantas/m&#178;</li><li>Evaluaci&#243;n primer flujo de malezas</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>Resiembra si germinaci&#243;n &lt;80%</li><li>Mantener l&#225;mina 2&#8211;3 cm</li><li>1 jornal vigilancia/semana</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e2">
+      <div class="etapa-header" onclick="toggleE('e2')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#388e3c,#66bb6a)">E2</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Macollamiento</div>
+          <div class="etapa-period">DDG 14&#8211;40 | D&#237;as 15&#8211;40 | <span class="td-phase ph-veg">Vegetativa</span> &#8212; <b>Per&#237;odo cr&#237;tico</b></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Aparici&#243;n de macollas (tallos laterales)</li><li>Fase de m&#225;ximo ahijamiento</li><li>Determina N&#176; de macollas/m&#178;</li><li>Altura: 20&#8211;50 cm</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo AMTEC</div><ul><li><b>Sogata</b>: 1 ninfa/macollo = umbral</li><li>Defoliadores (Spodoptera)</li><li>Malezas: per&#237;odo cr&#237;tico DDG 15&#8211;35</li><li>Helminthosporium foliar</li><li>Frecuencia: cada 7&#8211;8 d&#237;as</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>1&#170; fertilizaci&#243;n N-P-K (DDG 15&#8211;18)</li><li>Control malezas post-emergente (DDG 20&#8211;25)</li><li>L&#225;mina 5 cm</li><li>Riego cada 3&#8211;4 d&#237;as</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e3">
+      <div class="etapa-header" onclick="toggleE('e3')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#1b5e20,#43a047)">E3</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Pleno Macollamiento y Elongaci&#243;n del Tallo</div>
+          <div class="etapa-period">DDG 40&#8211;47 | D&#237;as 41&#8211;47 | <span class="td-phase ph-veg">Vegetativa</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>M&#225;ximo N&#176; de macollas/m&#178;</li><li>Inicio elongaci&#243;n del tallo principal</li><li>Diferenciaci&#243;n de nudos basales</li><li>Altura: 50&#8211;70 cm</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo</div><ul><li>Coraz&#243;n muerto (<i>Diatraea</i>, <i>Rupela</i>)</li><li>Sogata (umbral cr&#237;tico)</li><li>Pyricularia foliar</li><li>&#218;ltima oportunidad control malezas</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>2&#170; fertilizaci&#243;n N (DDG 40&#8211;45)</li><li>Despalille (macollas improductivas)</li><li>Mantenimiento bordas y caballones</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e4">
+      <div class="etapa-header" onclick="toggleE('e4')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#6a1b9a,#ab47bc)">E4</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Iniciaci&#243;n de Primordio y Desarrollo de Pan&#237;cula</div>
+          <div class="etapa-period">DDG 47&#8211;63 | D&#237;as 48&#8211;63 | <span class="td-phase ph-rep">Reproductiva</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Diferenciaci&#243;n del meristemo apical en primordio floral</li><li>Etapa cr&#237;tica para granos/pan&#237;cula</li><li>Alta demanda h&#237;drica y nutricional</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo CR&#205;TICO</div><ul><li><b>Pyricularia</b> en hoja bandera</li><li><b>Chinche</b> (<i>Oebalus pugnax</i>)</li><li>Sogata vectora de virus Hoja Blanca</li><li>Monitoreo cada 5&#8211;7 d&#237;as</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>3&#170; fertilizaci&#243;n N foliar (opcional)</li><li>Elevar l&#225;mina a 10 cm</li><li>Vigilancia de vectores virus</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e5">
+      <div class="etapa-header" onclick="toggleE('e5')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#4a148c,#7b1fa2)">E5</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Embuchamiento (Bota)</div>
+          <div class="etapa-period">DDG 63&#8211;70 | D&#237;as 64&#8211;70 | <span class="td-phase ph-rep">Reproductiva</span> &#8212; <b>Aplicaci&#243;n fungicida OBLIGATORIA</b></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Pan&#237;cula visible dentro de la vaina</li><li>M&#225;xima susceptibilidad a Pyricularia cuello</li><li>Visible engrosamiento de la vaina</li></ul></div>
+          <div class="info-box"><div class="ib-title">&#9888;&#65039; Monitoreo CR&#205;TICO</div><ul><li>Pyricularia cuello: protecci&#243;n obligatoria</li><li>Manchas del grano</li><li>Chinche: umbral 1 adulto/m&#178;</li><li>Aplicar fungicida preventivo</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>Fungicida cuello (Azoxistrobina + Propiconazol)</li><li>L&#225;mina 10&#8211;12 cm</li><li>2 jornales aplicaci&#243;n/bomba 20L</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e6">
+      <div class="etapa-header" onclick="toggleE('e6')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#b71c1c,#ef5350)">E6</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Espigamiento y Floraci&#243;n</div>
+          <div class="etapa-period">DDG 70&#8211;84 | D&#237;as 71&#8211;84 | <span class="td-phase ph-rep">Reproductiva</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Emisi&#243;n de la pan&#237;cula</li><li>Ant&#233;sis: apertura flores 7&#8211;14 d&#237;as</li><li>Polinizaci&#243;n aut&#243;gama</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo</div><ul><li>% espigamiento y pan&#237;culas/m&#178;</li><li>Manchas del grano</li><li>Pajareo activo</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>Pajareo: 4&#8211;6 jornales/semana</li><li>L&#225;mina 10 cm</li><li>NO plaguicidas durante floraci&#243;n activa</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e7">
+      <div class="etapa-header" onclick="toggleE('e7')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#bf360c,#ff7043)">E7</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Grano Lechoso</div>
+          <div class="etapa-period">DDG 84&#8211;98 | D&#237;as 85&#8211;98 | <span class="td-phase ph-mad">Maduraci&#243;n</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Endosperma l&#237;quido (lechoso)</li><li>Alta acumulaci&#243;n de reservas</li><li>Pan&#237;cula comienza a doblar por peso</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo</div><ul><li>Chinche del arroz: da&#241;o directo al grano</li><li>Manchas del grano</li><li>Pajareo intensivo</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>Pajareo intensivo</li><li>L&#225;mina 8 cm</li><li>2&#170; fungicida si hay manchas &gt;20%</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e8">
+      <div class="etapa-header" onclick="toggleE('e8')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#e65100,#ffa726)">E8</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Grano Pastoso</div>
+          <div class="etapa-period">DDG 98&#8211;112 | D&#237;as 99&#8211;112 | <span class="td-phase ph-mad">Maduraci&#243;n</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>Solidificaci&#243;n del endosperma</li><li>Reducci&#243;n de humedad del grano</li><li>Amarillamiento progresivo</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores</div><ul><li>Inicio suspensi&#243;n de riego (DDG 105&#8211;108)</li><li>Pajareo continuo</li><li>Preparar equipos de cosecha</li></ul></div>
+          <div class="info-box"><div class="ib-title">Monitoreo</div><ul><li>% pan&#237;culas maduras</li><li>Humedad del grano (meta 22&#8211;25%)</li><li>Vigilar acame (volcamiento)</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapa-card" id="e9">
+      <div class="etapa-header" onclick="toggleE('e9')">
+        <div class="etapa-num" style="background:linear-gradient(135deg,#f57f17,#ffca28);color:#000">E9</div>
+        <div class="etapa-info">
+          <div class="etapa-name">Grano Maduro y Cosecha</div>
+          <div class="etapa-period">DDG 112&#8211;120 | D&#237;as 113&#8211;120 | <span class="td-phase ph-mad">Maduraci&#243;n</span></div>
+        </div>
+        <div class="etapa-toggle">&#9660;</div>
+      </div>
+      <div class="etapa-body">
+        <div class="etapa-grid-inner">
+          <div class="info-box"><div class="ib-title">Caracter&#237;sticas</div><ul><li>85&#8211;90% granos color dorado</li><li>Humedad del grano 20&#8211;22%</li><li>Punto &#243;ptimo de cosecha</li></ul></div>
+          <div class="info-box"><div class="ib-title">Labores Cosecha</div><ul><li>Corte y recolecci&#243;n manual</li><li>Transporte interno al acopio</li><li>Secado hasta 12&#8211;14% humedad</li></ul></div>
+          <div class="info-box"><div class="ib-title">Puntos Cr&#237;ticos</div><ul><li>No cosechar con humedad &gt;25%</li><li>No retrasar: granos se quiebran</li><li>8&#8211;10 jornales/ha cosecha manual</li><li>Rendimiento esperado 6&#8211;8 t/ha</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: CRONOGRAMA GENERAL -->
+  <section id="tab-cronograma" class="section">
+    <h2 class="section-title">Cronograma <span>General de Actividades</span></h2>
+    <p class="section-desc">Todas las actividades organizadas por DDG y d&#237;as calendario, desde preparaci&#243;n de suelo hasta cosecha.</p>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#2e7d32"></div> Vegetativa</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#6a1b9a"></div> Reproductiva</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#bf360c"></div> Maduraci&#243;n</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0a3d5c"></div> Pre-siembra</div>
+      <div class="legend-item"><span class="tag tag-j">J</span> Jornales</div>
+      <div class="legend-item"><span class="tag tag-i">I</span> Insectos</div>
+      <div class="legend-item"><span class="tag tag-e">E</span> Enfermedad</div>
+      <div class="legend-item"><span class="tag tag-m">M</span> Malezas</div>
+      <div class="legend-item"><span class="tag tag-r">R</span> Riego</div>
+    </div>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>DDG</th><th>D&#237;a Cal.</th><th>Fase/Estad&#237;o</th><th>Actividad Principal</th><th>Descripci&#243;n T&#233;cnica</th><th>Jornales/ha</th><th>Equipo</th><th>Tipo</th></tr></thead>
+        <tbody>
+          <tr><td class="td-ddg">-30</td><td>D&#237;a -30</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Limpia general del lote</td><td>Chapeo rastrojos con machete + retiro residuos vegetales</td><td><span class="tag tag-j">4 J</span></td><td>Machete, guada&#241;a</td><td><span class="tag tag-m">M</span></td></tr>
+          <tr><td class="td-ddg">-25</td><td>D&#237;a -25</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">An&#225;lisis de suelo + Instalaci&#243;n riego</td><td>Muestreo suelo (20 submuestras/ha, 0&#8211;20 cm). Tendido manguera 2&#8243; y motor 16L.</td><td><span class="tag tag-j">4 J</span></td><td>Barren&#243;, manguera 2&#8243;, motor 16L</td><td><span class="tag tag-r">R</span></td></tr>
+          <tr><td class="td-ddg">-20</td><td>D&#237;a -20</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Herbicida total (Glifosato)</td><td>Glifosato 3 L/ha para eliminaci&#243;n de malezas perennes. Bomba 20L: 20 cargas/ha.</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td><span class="tag tag-m">M</span></td></tr>
+          <tr><td class="td-ddg">-15</td><td>D&#237;a -15</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Preparaci&#243;n suelo &#8211; Arada manual</td><td>Volteo manual del suelo 20&#8211;25 cm con az&#225;don/pala. Incorporaci&#243;n de rastrojos.</td><td><span class="tag tag-j">6 J</span></td><td>Az&#225;d&#243;n, pala</td><td>Suelo</td></tr>
+          <tr><td class="td-ddg">-12</td><td>D&#237;a -12</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Rastrillado, nivelaci&#243;n y caballones</td><td>Rastrillado fino + nivelaci&#243;n (desnivel m&#225;x. 5 cm). Construcci&#243;n caballones 40 cm h.</td><td><span class="tag tag-j">8 J</span></td><td>Rastrillo, az&#225;d&#243;n, pala</td><td>Suelo</td></tr>
+          <tr><td class="td-ddg">-10</td><td>D&#237;a -10</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Canales de riego y drenaje + Encalado</td><td>Excavaci&#243;n canal principal (40x30 cm) y laterales. Encalado si pH &lt;5.5 (200&#8211;500 kg/ha).</td><td><span class="tag tag-j">5 J</span></td><td>Pala, az&#225;d&#243;n, esparciador</td><td>Suelo</td></tr>
+          <tr><td class="td-ddg">-7</td><td>D&#237;a -7</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Riego de prueba</td><td>Riego con motor 16L + manguera 2&#8243;, 3&#8211;4h. Verificar distribuci&#243;n y puntos cr&#237;ticos.</td><td><span class="tag tag-j">1 J</span></td><td>Motor 16L, manguera 2&#8243;</td><td><span class="tag tag-r">R</span></td></tr>
+          <tr><td class="td-ddg">-5</td><td>D&#237;a -5</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Selecci&#243;n y tratamiento de semilla</td><td>Prueba germinaci&#243;n (%G &gt;85%). Tratamiento fungicida semilla (Carbendazim + Thiram 2g/kg). Pregerminaci&#243;n 24&#8211;36h.</td><td><span class="tag tag-j">1 J</span></td><td>Baldes, fungicida semilla</td><td>Semilla</td></tr>
+          <tr><td class="td-ddg">-3</td><td>D&#237;a -3</td><td><span class="td-phase ph-pre">Pre-siembra</span></td><td class="td-bold">Herbicida pre-emergente</td><td>Pendimethalina 2L/ha u Oxifluorfen. Bomba 20L. Incorporar con riego ligero.</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td><span class="tag tag-m">M</span></td></tr>
+          <tr style="background:rgba(45,122,79,.12)!important"><td class="td-ddg">0</td><td>D&#237;a 1</td><td><span class="td-phase ph-veg">E0 &#8211; Germinaci&#243;n</span></td><td class="td-bold">&#127807; SIEMBRA</td><td>Siembra directa voleo/surcos 20&#8211;25 cm. 150 kg semilla/ha. Tapado manual con rastrillo. Inicio riego.</td><td><span class="tag tag-j">5 J</span></td><td>Semilla, rastrillo</td><td>Siembra</td></tr>
+          <tr><td class="td-ddg">3</td><td>D&#237;a 4</td><td><span class="td-phase ph-veg">E0</span></td><td class="td-bold">Riego de establecimiento</td><td>L&#225;mina 2&#8211;3 cm. Motor 16L + manguera 2&#8243; durante 3&#8211;4 horas. Distribuci&#243;n uniforme.</td><td><span class="tag tag-j">1 J</span></td><td>Motor 16L, manguera 2&#8243;</td><td><span class="tag tag-r">R</span></td></tr>
+          <tr><td class="td-ddg">5&#8211;14</td><td>D&#237;a 6&#8211;15</td><td><span class="td-phase ph-veg">E1 &#8211; Pl&#225;ntula</span></td><td class="td-bold">Vigilancia y 1er monitoreo</td><td>Conteo plantas/m&#178; (m&#237;nimo 150&#8211;200). Monitoreo insectos y malezas. Resiembra si &lt;80%.</td><td><span class="tag tag-j">2 J</span></td><td>Cuadrado 0.5m&#178;, formatos</td><td><span class="tag tag-i">I</span> <span class="tag tag-m">M</span></td></tr>
+          <tr><td class="td-ddg">15</td><td>D&#237;a 16</td><td><span class="td-phase ph-veg">E2 &#8211; Macollamiento</span></td><td class="td-bold">1&#170; Fertilizaci&#243;n N-P-K</td><td>Urea 100 kg/ha + DAP 100 kg/ha + KCl 50 kg/ha. Voleo manual en suelo sin encharcamiento.</td><td><span class="tag tag-j">2 J</span></td><td>Esparciador manual</td><td>Fertil.</td></tr>
+          <tr><td class="td-ddg">20&#8211;25</td><td>D&#237;a 21&#8211;26</td><td><span class="td-phase ph-veg">E2 &#8211; Macollamiento</span></td><td class="td-bold">Control malezas post-emergente</td><td>2,4-D amina 1L/ha + Metsulfuron 15g/ha. Per&#237;odo cr&#237;tico de competencia DDG 15&#8211;35. Bomba 20L.</td><td><span class="tag tag-j">3 J</span></td><td>Bomba 20L</td><td><span class="tag tag-m">M</span></td></tr>
+          <tr><td class="td-ddg">22</td><td>D&#237;a 23</td><td><span class="td-phase ph-veg">E2</span></td><td class="td-bold">Monitoreo 2 &#8211; Plagas y enfermedades</td><td>Sogata (red entom&#243;l&#243;gica, 25 golpes/punto), defoliadores, Helminthosporium. 5 puntos/ha.</td><td><span class="tag tag-j">1 J</span></td><td>Red entom&#243;l&#243;gica, formatos AMTEC</td><td><span class="tag tag-i">I</span> <span class="tag tag-e">E</span></td></tr>
+          <tr><td class="td-ddg">14&#8211;40</td><td>D&#237;a 15&#8211;41</td><td><span class="td-phase ph-veg">E2</span></td><td class="td-bold">Riego regular y mantenimiento canales</td><td>Riegos cada 3&#8211;4 d&#237;as. L&#225;mina 5&#8211;7 cm. Limpieza de canales 1 vez/semana. Motor 16L.</td><td><span class="tag tag-j">8 J</span></td><td>Motor 16L, manguera 2&#8243;, az&#225;d&#243;n</td><td><span class="tag tag-r">R</span></td></tr>
+          <tr><td class="td-ddg">30</td><td>D&#237;a 31</td><td><span class="td-phase ph-veg">E2</span></td><td class="td-bold">Monitoreo enfermedades foliares</td><td>Pyricularia foliar (escala 0&#8211;9 IRRI), Helminthosporium. Si incidencia &gt;10%, aplicar fungicida.</td><td><span class="tag tag-j">1 J</span></td><td>Lupa, formatos</td><td><span class="tag tag-e">E</span></td></tr>
+          <tr><td class="td-ddg">40&#8211;45</td><td>D&#237;a 41&#8211;46</td><td><span class="td-phase ph-veg">E3 &#8211; Elongaci&#243;n</span></td><td class="td-bold">2&#170; Fertilizaci&#243;n nitrogenada + Despalille</td><td>Urea 150 kg/ha voleo. Despalille macollas improductivas. Mantenimiento bordas y caballones.</td><td><span class="tag tag-j">5 J</span></td><td>Esparciador, machete, az&#225;d&#243;n</td><td>Fertil.</td></tr>
+          <tr><td class="td-ddg">45</td><td>D&#237;a 46</td><td><span class="td-phase ph-veg">E3</span></td><td class="td-bold">Monitoreo general pre-reproductivo</td><td>Monitoreo completo: Sogata, Diatraea, Spodoptera, Pyricularia, malezas remanentes.</td><td><span class="tag tag-j">1 J</span></td><td>Red entom&#243;l&#243;gica, lupa, formatos</td><td><span class="tag tag-i">I</span> <span class="tag tag-e">E</span></td></tr>
+          <tr><td class="td-ddg">47&#8211;63</td><td>D&#237;a 48&#8211;64</td><td><span class="td-phase ph-rep">E4 &#8211; Primordio</span></td><td class="td-bold">Riego intensivo reproductivo + monitoreo</td><td>L&#225;mina 10 cm continua. Motor 16L 5&#8211;6h/d&#237;a. Monitoreo chinche + Pyricularia cada 7 d&#237;as.</td><td><span class="tag tag-j">10 J</span></td><td>Motor 16L, manguera 2&#8243;</td><td><span class="tag tag-r">R</span> <span class="tag tag-i">I</span></td></tr>
+          <tr style="border:2px solid #e63946!important"><td class="td-ddg">63&#8211;65</td><td>D&#237;a 64&#8211;66</td><td><span class="td-phase ph-rep">E5 &#8211; Embuchamiento</span></td><td class="td-bold">&#9888;&#65039; FUNGICIDA CUELLO (OBLIGATORIO)</td><td>Azoxistrobina 200cc + Propiconazol 250cc/ha. Bomba 20L: 20 cargas/ha, 2 operarios = 1 d&#237;a.</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L, fungicida sist&#233;mico</td><td><span class="tag tag-e">E</span></td></tr>
+          <tr><td class="td-ddg">65&#8211;68</td><td>D&#237;a 66&#8211;69</td><td><span class="td-phase ph-rep">E5</span></td><td class="td-bold">Control chinche (si umbral superado)</td><td>Lambda-cihalotrina 200cc/ha si chinche &gt;1/m&#178;. Aplicar tarde (16&#8211;18h). Bomba 20L.</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L, insecticida</td><td><span class="tag tag-i">I</span></td></tr>
+          <tr><td class="td-ddg">70&#8211;84</td><td>D&#237;a 71&#8211;85</td><td><span class="td-phase ph-rep">E6 &#8211; Espigamiento</span></td><td class="td-bold">Pajareo activo + Riego sostenido</td><td>Guardia p&#225;jaros 4&#8211;6 jornales/semana. L&#225;mina 10 cm. NO plaguicidas en floraci&#243;n (7&#8211;11am).</td><td><span class="tag tag-j">8 J</span></td><td>Espanta-p&#225;jaros, motor 16L</td><td><span class="tag tag-r">R</span></td></tr>
+          <tr><td class="td-ddg">84&#8211;98</td><td>D&#237;a 85&#8211;99</td><td><span class="td-phase ph-mad">E7 &#8211; Lechoso</span></td><td class="td-bold">Pajareo intensivo + Monitoreo grano</td><td>Pajareo intensivo. Chinche en grano lechoso (da&#241;o vaneamiento). L&#225;mina 8 cm.</td><td><span class="tag tag-j">8 J</span></td><td>Espanta-p&#225;jaros, motor 16L</td><td><span class="tag tag-i">I</span> <span class="tag tag-r">R</span></td></tr>
+          <tr><td class="td-ddg">90</td><td>D&#237;a 91</td><td><span class="td-phase ph-mad">E7</span></td><td class="td-bold">2&#170; fungicida manchas del grano (si req.)</td><td>Solo si incidencia manchas &gt;20%. Difenoconazol + Propiconazol 250cc/ha. 2 jornales bomba 20L.</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L, fungicida</td><td><span class="tag tag-e">E</span></td></tr>
+          <tr><td class="td-ddg">98&#8211;108</td><td>D&#237;a 99&#8211;109</td><td><span class="td-phase ph-mad">E8 &#8211; Pastoso</span></td><td class="td-bold">Reducci&#243;n riego + Pajareo + Evaluaci&#243;n</td><td>Reducir l&#225;mina progresivamente. Suspender riego DDG 105&#8211;108. Evaluar % humedad grano.</td><td><span class="tag tag-j">5 J</span></td><td>Motor 16L, higr&#243;metro</td><td><span class="tag tag-r">R</span></td></tr>
+          <tr style="background:rgba(249,199,79,.08)!important"><td class="td-ddg">112&#8211;120</td><td>D&#237;a 113&#8211;121</td><td><span class="td-phase ph-mad">E9 &#8211; Cosecha</span></td><td class="td-bold">&#127806; COSECHA</td><td>Corte manual con hoces. Recolecci&#243;n, transporte interno, almacenamiento temporal. 8&#8211;10 jornales/ha.</td><td><span class="tag tag-j">10 J</span></td><td>Hoces, costales, carretillas</td><td>Cosecha</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB 3: SUELOS -->
+  <section id="tab-suelos" class="section">
+    <h2 class="section-title">Preparaci&#243;n de <span>Suelos</span></h2>
+    <p class="section-desc">Labores manuales de adecuaci&#243;n realizadas entre 30 y 3 d&#237;as antes de la siembra. Una buena preparaci&#243;n garantiza establecimiento uniforme, eficiencia en riego y mejor control de malezas.</p>
+    <div class="cards-3col">
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#128202;</span><div><div class="ic-title">An&#225;lisis de Suelo</div><div class="ic-sub">DDG -25 | 1 jornal</div></div></div><ul><li>Toma de muestra en zigzag (20 puntos/ha)</li><li>Profundidad 0&#8211;20 cm</li><li>Variables: pH, MO, N, P, K, Ca, Mg, S, B, Zn</li><li>Encalar si pH &lt;5.5 (Cal dolomita 200&#8211;500 kg/ha)</li><li>Fertilizar seg&#250;n recomendaci&#243;n de laboratorio</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127807;</span><div><div class="ic-title">Limpia y Chapeo</div><div class="ic-sub">DDG -30 | 4 jornales</div></div></div><ul><li>Chapeo rastrojos con machete (2 J)</li><li>Retiro o incorporaci&#243;n de residuos</li><li>Herbicida total Glifosato 3L/ha (2 J bomba 20L)</li><li>Esperar 10&#8211;15 d&#237;as para efectividad</li><li>Eliminar plantas voluntarias</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#9935;&#65039;</span><div><div class="ic-title">Arada y Rastrillado Manual</div><div class="ic-sub">DDG -15 a -12 | 11 jornales</div></div></div><ul><li>Arada/Volteo: 6 J/ha con az&#225;d&#243;n/pala (20&#8211;25 cm)</li><li>Rastrillado y nivelaci&#243;n: 5 J/ha</li><li>Desnivel m&#225;ximo 5 cm en toda la parcela</li><li>Nivel de agua o regla para nivelar</li><li>Incorporar enmiendas y rastrojos</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127959;&#65039;</span><div><div class="ic-title">Caballones y Canales</div><div class="ic-sub">DDG -12 a -10 | 6 jornales</div></div></div><ul><li>Caballones 40 cm alto x 60 cm base, cada 10&#8211;15 m (3 J)</li><li>Canal entrada riego: secci&#243;n 40x30 cm (3 J)</li><li>Canales de drenaje laterales</li><li>Compuertas de arcilla o l&#225;mina pl&#225;stica</li><li>Pendiente m&#237;nima 0.2% para drenaje</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127807;</span><div><div class="ic-title">Encalado y Herbicida Pre</div><div class="ic-sub">DDG -10 a -3 | 4 jornales</div></div></div><ul><li>Cal dolomita 200&#8211;500 kg/ha si pH &lt;5.5 (2 J)</li><li>Herbicida pre-emergente (Pendimethalina 2L/ha) (2 J bomba 20L)</li><li>pH objetivo 5.5&#8211;6.5</li><li>Incorporar cal con rastrillo</li><li>Esperar 5&#8211;7 d&#237;as antes siembra</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127770;</span><div><div class="ic-title">Semilla y Siembra</div><div class="ic-sub">DDG -5 a 0 | 6 jornales</div></div></div><ul><li>Prueba germinaci&#243;n: &gt;85% (1 J)</li><li>Tratamiento fungicida semilla (0.5 J)</li><li>Pregerminaci&#243;n 24&#8211;36 h en agua</li><li>Siembra voleo/surcos 150 kg/ha (5 J)</li><li>Tapado con rastrillo, inicio riego inmediato</li></ul></div>
+    </div>
+    <h3 class="sh">Resumen de Labores y Jornales &#8211; Preparaci&#243;n de Suelos</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>Actividad</th><th>DDG</th><th>D&#237;as antes siembra</th><th>Jornales/ha</th><th>Herramienta</th><th>Observaciones</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Limpia/chapeo lote</td><td class="td-ddg">-30</td><td>30 d&#237;as</td><td><span class="tag tag-j">4 J</span></td><td>Machete, guada&#241;a</td><td>Incluye retiro de rastrojos</td></tr>
+          <tr><td class="td-bold">An&#225;lisis de suelo</td><td class="td-ddg">-25</td><td>25 d&#237;as</td><td><span class="tag tag-j">1 J</span></td><td>Barren&#243;, bolsas</td><td>20 submuestras/ha, 0&#8211;20 cm</td></tr>
+          <tr><td class="td-bold">Instalaci&#243;n sistema riego</td><td class="td-ddg">-25</td><td>25 d&#237;as</td><td><span class="tag tag-j">3 J</span></td><td>Motor 16L, manguera 2&#8243;</td><td>Tendido, conexiones, prueba</td></tr>
+          <tr><td class="td-bold">Herbicida total (Glifosato)</td><td class="td-ddg">-20</td><td>20 d&#237;as</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>3 L/ha, esperar 10&#8211;15 d&#237;as</td></tr>
+          <tr><td class="td-bold">Arada/Volteo manual</td><td class="td-ddg">-15</td><td>15 d&#237;as</td><td><span class="tag tag-j">6 J</span></td><td>Az&#225;d&#243;n, pala</td><td>Profundidad 20&#8211;25 cm</td></tr>
+          <tr><td class="td-bold">Rastrillado y nivelaci&#243;n</td><td class="td-ddg">-12</td><td>12 d&#237;as</td><td><span class="tag tag-j">5 J</span></td><td>Rastrillo, az&#225;d&#243;n</td><td>Desnivel m&#225;x 5 cm</td></tr>
+          <tr><td class="td-bold">Construcci&#243;n caballones</td><td class="td-ddg">-12</td><td>12 d&#237;as</td><td><span class="tag tag-j">3 J</span></td><td>Az&#225;d&#243;n, pala</td><td>40 cm altura, cada 10&#8211;15 m</td></tr>
+          <tr><td class="td-bold">Construcci&#243;n canales</td><td class="td-ddg">-10</td><td>10 d&#237;as</td><td><span class="tag tag-j">3 J</span></td><td>Pala, az&#225;d&#243;n</td><td>Entrada + drenajes laterales</td></tr>
+          <tr><td class="td-bold">Encalado / Correcci&#243;n pH</td><td class="td-ddg">-10</td><td>10 d&#237;as</td><td><span class="tag tag-j">2 J</span></td><td>Esparciador manual</td><td>Solo si pH &lt;5.5</td></tr>
+          <tr><td class="td-bold">Riego de prueba</td><td class="td-ddg">-7</td><td>7 d&#237;as</td><td><span class="tag tag-j">1 J</span></td><td>Motor 16L, manguera 2&#8243;</td><td>Verificar distribuci&#243;n</td></tr>
+          <tr><td class="td-bold">Herbicida pre-emergente</td><td class="td-ddg">-3</td><td>3 d&#237;as</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>Incorporar con riego ligero</td></tr>
+          <tr><td class="td-bold">Tratamiento semilla</td><td class="td-ddg">-5</td><td>5 d&#237;as</td><td><span class="tag tag-j">1 J</span></td><td>Baldes, mezcladora</td><td>Prueba germinaci&#243;n &gt;85%</td></tr>
+          <tr style="background:rgba(249,199,79,.08)!important"><td class="td-bold" colspan="2">TOTAL JORNALES PRE-SIEMBRA</td><td>~30 d&#237;as</td><td><span class="tag tag-j">33 J</span></td><td colspan="2">Aproximado para 1 ha en suelos medianos</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB 4: MONITOREOS -->
+  <section id="tab-monitoreos" class="section">
+    <h2 class="section-title">Monitoreos: Plagas, <span>Enfermedades y Malezas</span></h2>
+    <p class="section-desc">El monitoreo sistem&#225;tico es la base del MIP seg&#250;n AMTEC. Los umbrales de acci&#243;n determinan cu&#225;ndo es necesaria una intervenci&#243;n.</p>
+    <h3 class="sh">Insectos Plaga &#8211; Umbrales de Acci&#243;n</h3>
+    <div class="monitor-grid">
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-insect">&#129415;</div><div><div class="mc-name">Sogata / Gusano Blanco</div><div class="mc-sci">Tagosodes orizicolus (Muir)</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral de Acci&#243;n</div><div class="tb-value">1 ninfa/macollo &#243; 10 ninfas/m&#178;</div><div class="tb-method">Vectora del Virus Hoja Blanca (VHB)</div></div><div class="threshold-bar"><div class="tb-label">M&#233;todo</div><div class="tb-value">Red entomol&#243;gica &#8211; 25 golpes dobles/punto</div><div class="tb-method">5 puntos/ha. Contar ninfas y adultos.</div></div><div class="threshold-bar"><div class="tb-label">Frecuencia</div><div class="tb-value">Cada 7 d&#237;as desde DDG 10</div></div><div class="monitor-stages"><span class="td-phase ph-veg">Vegetativa</span><span class="td-phase ph-rep">Reproductiva</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-insect">&#128027;</div><div><div class="mc-name">Berer / Cogollero</div><div class="mc-sci">Diatraea saccharalis + Rupela albinella</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral Vegetativo (Coraz&#243;n Muerto)</div><div class="tb-value">5% de tallos con coraz&#243;n muerto</div></div><div class="threshold-bar"><div class="tb-label">Umbral Reproductivo (Pan&#237;cula Blanca)</div><div class="tb-value">2% de pan&#237;culas blancas</div></div><div class="threshold-bar"><div class="tb-label">M&#233;todo</div><div class="tb-value">Conteo directo en 10 sitios de 1 m lineal</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E2-E3</span><span class="td-phase ph-rep">E5-E6</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-insect">&#129410;</div><div><div class="mc-name">Chinche del Arroz</div><div class="mc-sci">Oebalus pugnax / Tibraca limbativentris</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral de Acci&#243;n</div><div class="tb-value">1 adulto o ninfa/m&#178;</div><div class="tb-method">Da&#241;o: vaneamiento y mancha del grano</div></div><div class="threshold-bar"><div class="tb-label">M&#233;todo</div><div class="tb-value">Red entomol&#243;gica + inspecci&#243;n directa pan&#237;culas</div></div><div class="threshold-bar"><div class="tb-label">Momento Cr&#237;tico</div><div class="tb-value">DDG 60&#8211;100 (llenado de grano)</div></div><div class="monitor-stages"><span class="td-phase ph-rep">E5-E6</span><span class="td-phase ph-mad">E7-E8</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-insect">&#129411;</div><div><div class="mc-name">Defoliadores</div><div class="mc-sci">Spodoptera frugiperda / Mocis latipes</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral de Acci&#243;n</div><div class="tb-value">25% de defoliaci&#243;n &#243; 2 larvas/m&#178;</div></div><div class="threshold-bar"><div class="tb-label">M&#233;todo</div><div class="tb-value">Inspecci&#243;n visual + red entomol&#243;gica. 5 sitios/ha.</div></div><div class="threshold-bar"><div class="tb-label">Mayor Riesgo</div><div class="tb-value">DDG 15&#8211;45 (vegetativa activa)</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E1-E3</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-insect">&#128028;</div><div><div class="mc-name">Gorgojo del Agua</div><div class="mc-sci">Lissorhoptrus brevirostris</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral de Acci&#243;n</div><div class="tb-value">2 adultos/planta (inicio macollamiento)</div></div><div class="threshold-bar"><div class="tb-label">M&#233;todo</div><div class="tb-value">Inspecci&#243;n directa plantas con l&#225;mina de agua</div></div><div class="threshold-bar"><div class="tb-label">Mayor Riesgo</div><div class="tb-value">DDG 10&#8211;40 con l&#225;mina establecida</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E1-E2</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-insect">&#128031;</div><div><div class="mc-name">Trips del Arroz</div><div class="mc-sci">Stenchaetothrips biformis</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral de Acci&#243;n</div><div class="tb-value">10 trips/hoja &#243; enrollamiento &gt;30%</div></div><div class="threshold-bar"><div class="tb-label">M&#233;todo</div><div class="tb-value">Inspecci&#243;n directa hojas j&#243;venes con lupa</div></div><div class="threshold-bar"><div class="tb-label">Mayor Riesgo</div><div class="tb-value">DDG 5&#8211;20 (pl&#225;ntulas, estr&#233;s h&#237;drico)</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E0-E1</span></div></div></div>
+    </div>
+
+    <h3 class="sh">Enfermedades &#8211; Monitoreo y Umbrales</h3>
+    <div class="monitor-grid">
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-disease">&#127812;</div><div><div class="mc-name">Pyricularia / Quemado</div><div class="mc-sci">Magnaporthe oryzae (Pyricularia grisea)</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral Foliar</div><div class="tb-value">Escala IRRI &gt;3 (25% &#225;rea foliar)</div></div><div class="threshold-bar"><div class="tb-label">Umbral Cuello (CR&#205;TICO)</div><div class="tb-value">5% de culmos afectados = acci&#243;n inmediata</div></div><div class="threshold-bar"><div class="tb-label">Control</div><div class="tb-value">Azoxistrobina + Propiconazol; Trifloxistrobina</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E2-E3</span><span class="td-phase ph-rep">E5-E6 CR&#205;TICO</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-disease">&#127807;</div><div><div class="mc-name">Helminthosporium / Mancha Caf&#233;</div><div class="mc-sci">Bipolaris oryzae</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral</div><div class="tb-value">15% de &#225;rea foliar afectada</div></div><div class="threshold-bar"><div class="tb-label">S&#237;ntomas</div><div class="tb-value">Manchas ovales marr&#243;n con halo amarillo</div></div><div class="threshold-bar"><div class="tb-label">Condiciones Favorables</div><div class="tb-value">Humedad &gt;90%, temp 25&#8211;30&#176;C, N deficiente</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E1-E4</span><span class="td-phase ph-mad">E7-E8</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-disease">&#127806;</div><div><div class="mc-name">Manchas del Grano</div><div class="mc-sci">Alternaria, Curvularia, Phoma (complejo)</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral</div><div class="tb-value">20% de pan&#237;culas con manchas</div></div><div class="threshold-bar"><div class="tb-label">Impacto</div><div class="tb-value">Reduce % entero molinero y calidad comercial</div></div><div class="threshold-bar"><div class="tb-label">Control</div><div class="tb-value">Difenoconazol + Propiconazol en grano lechoso</div></div><div class="monitor-stages"><span class="td-phase ph-mad">E7-E8 (grano lechoso)</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-disease">&#129440;</div><div><div class="mc-name">Virus Hoja Blanca (VHB)</div><div class="mc-sci">Rice Hoja Blanca Virus &#8211; vector Sogata</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral Preventivo</div><div class="tb-value">Sogata &ge;1 ninfa/macollo = CONTROL VECTOR</div></div><div class="threshold-bar"><div class="tb-label">S&#237;ntomas</div><div class="tb-value">Estr&#237;as blancas y verde p&#225;lido en hojas</div></div><div class="threshold-bar"><div class="tb-label">Estrategia</div><div class="tb-value">Control Sogata + variedades resistentes</div></div><div class="monitor-stages"><span class="td-phase ph-veg">E1-E4</span></div></div></div>
+
+      <div class="monitor-card"><div class="monitor-card-header"><div class="monitor-icon ic-disease">&#128309;</div><div><div class="mc-name">A&#241;ublo de la Vaina</div><div class="mc-sci">Rhizoctonia solani</div></div></div><div class="monitor-card-body"><div class="threshold-bar"><div class="tb-label">Umbral</div><div class="tb-value">30% de macollas afectadas</div></div><div class="threshold-bar"><div class="tb-label">Condiciones Favorables</div><div class="tb-value">Alta densidad siembra, humedad, temp 28&#8211;32&#176;C</div></div><div class="threshold-bar"><div class="tb-label">Control</div><div class="tb-value">Validamicina, Propiconazol, reducir densidad</div></div><div class="monitor-stages"><span class="td-phase ph-rep">E4-E5</span></div></div></div>
+    </div>
+
+    <h3 class="sh">Malezas &#8211; Per&#237;odo Cr&#237;tico de Competencia</h3>
+    <div class="cards-3col">
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127806;</span><div><div class="ic-title">Gram&#237;neas</div><div class="ic-sub">Mayor competencia DDG 10&#8211;35</div></div></div><ul><li><i>Echinochloa colona</i> &#8211; Arrocillo de patio</li><li><i>Rottboellia cochinchinensis</i> &#8211; Caminadora</li><li><i>Digitaria sanguinalis</i> &#8211; Pata de gallina</li><li><i>Leptochloa filiformis</i> &#8211; Paja de agua</li><li>Control: Cletodim, Fenoxaprop, Bispiribac</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127826;</span><div><div class="ic-title">Ciper&#225;ceas (Cyperus)</div><div class="ic-sub">Mayor competencia DDG 10&#8211;40</div></div></div><ul><li><i>Cyperus rotundus</i> &#8211; Coquito</li><li><i>Fimbristylis miliacea</i> &#8211; Pelillo</li><li><i>Scirpus spp.</i> &#8211; Junco</li><li>Muy dif&#237;cil control qu&#237;mico</li><li>Control: Metsulfuron + 2,4-D</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127804;</span><div><div class="ic-title">Hoja Ancha (Dicotiled&#243;neas)</div><div class="ic-sub">Mayor competencia DDG 15&#8211;35</div></div></div><ul><li><i>Commelina diffusa</i> &#8211; Canutillo</li><li><i>Heteranthera limosa</i> &#8211; Flor de agua</li><li><i>Sesbania exasperata</i> &#8211; Sesbania</li><li>Control: 2,4-D amina 1L/ha</li><li>Bispiribac-sodio para arroz rojo</li></ul></div>
+    </div>
+
+    <h3 class="sh">Calendario de Monitoreos por DDG</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>DDG</th><th>Estad&#237;o</th><th>Insectos a Monitorear</th><th>Enfermedades</th><th>Malezas</th><th>Jornales Monitoreo</th></tr></thead>
+        <tbody>
+          <tr><td class="td-ddg">5&#8211;14</td><td>E0-E1 Pl&#225;ntula</td><td>Trips, Sogata, gorgojo</td><td>No significativo</td><td>Evaluaci&#243;n primer flujo</td><td><span class="tag tag-j">0.5 J</span></td></tr>
+          <tr><td class="td-ddg">15&#8211;22</td><td>E2 Macollamiento</td><td>Sogata, defoliadores, Diatraea</td><td>Manchas foliares</td><td>Per&#237;odo cr&#237;tico inicio</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">22&#8211;30</td><td>E2 Macollamiento</td><td>Sogata (conteo completo), Spodoptera</td><td>Helminthosporium</td><td>Evaluaci&#243;n control post</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">30&#8211;40</td><td>E2-E3</td><td>Diatraea (coraz&#243;n muerto), Sogata</td><td>Pyricularia foliar</td><td>Rebrote de malezas</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">40&#8211;47</td><td>E3 Elongaci&#243;n</td><td>Coraz&#243;n muerto, vectores virus</td><td>Rhizoctonia vaina</td><td>Evaluaci&#243;n final</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">47&#8211;63</td><td>E4 Primordio</td><td>Chinche, Sogata, Diatraea</td><td>Pyricularia hoja bandera</td><td>Sin acci&#243;n</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">63&#8211;70</td><td>E5 Embuchamiento</td><td>Chinche (cr&#237;tico), Diatraea</td><td>Pyricularia cuello (CR&#205;TICO)</td><td>No significativo</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">70&#8211;84</td><td>E6 Espigamiento</td><td>Chinche, &#225;caros en pan&#237;cula</td><td>Manchas del grano</td><td>No significativo</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr><td class="td-ddg">84&#8211;100</td><td>E7 Lechoso</td><td>Chinche (da&#241;o grano lechoso)</td><td>Manchas del grano</td><td>No significativo</td><td><span class="tag tag-j">0.5 J</span></td></tr>
+          <tr><td class="td-ddg">100&#8211;112</td><td>E8 Pastoso</td><td>Evaluaci&#243;n da&#241;os</td><td>Evaluaci&#243;n calidad</td><td>No significativo</td><td><span class="tag tag-j">0.5 J</span></td></tr>
+          <tr style="background:rgba(249,199,79,.08)!important"><td class="td-ddg" colspan="5"><b>TOTAL JORNALES DE MONITOREO (todo el ciclo)</b></td><td><span class="tag tag-j">8.5 J</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB 5: RIEGO -->
+  <section id="tab-riego" class="section">
+    <h2 class="section-title">Sistema de <span>Riego</span> con Manguera 2&#8243; y Motor 16L</h2>
+    <p class="section-desc">Sistema de riego manual con manguera de poli&#233;tilen/PVC de 2 pulgadas (50 mm) y motor de combusti&#243;n de 16 litros. El agua se conduce desde la fuente hasta tablones seg&#250;n el dise&#241;o del lote.</p>
+    <div class="riego-diagram">
+      <h3 class="sh">Instalaci&#243;n del Sistema de Riego &#8211; Paso a Paso</h3>
+      <div class="riego-steps">
+        <div class="riego-step"><div class="rs-num">1</div><div class="rs-content"><div class="rs-title">Evaluaci&#243;n de la fuente de agua</div><div class="rs-desc">Verificar caudal disponible (m&#237;nimo 15&#8211;20 L/s para 1 ha). Identificar nivel de agua respecto al lote. Calcular altura din&#225;mica total (ADT) para confirmar la capacidad de la bomba.</div></div></div>
+        <div class="riego-step"><div class="rs-num">2</div><div class="rs-content"><div class="rs-title">Instalaci&#243;n del Motor 16L</div><div class="rs-desc">Ubicar motor en sitio firme y plano, cerca de la fuente. Instalar filtro de succi&#243;n (malla 1 mm). Verificar que el nivel del agua alcance la cota de succi&#243;n. Motor t&#237;pico 5&#8211;7 HP, caudal 10&#8211;20 L/s, altura m&#225;x. 15&#8211;25 m.</div></div></div>
+        <div class="riego-step"><div class="rs-num">3</div><div class="rs-content"><div class="rs-title">Tendido de manguera principal (2&#8243; / 50 mm)</div><div class="rs-desc">Manguera PVC o polietileno 2 pulgadas. Longitud seg&#250;n distancia fuente-lote. Conexi&#243;n con abrazaderas met&#225;licas. Colocar sin curvas cerradas. Verificar estanqueidad. Caudal conducido 8&#8211;15 L/s a presi&#243;n operativa. 3 jornales para tender 100&#8211;200 m.</div></div></div>
+        <div class="riego-step"><div class="rs-num">4</div><div class="rs-content"><div class="rs-title">Distribuci&#243;n intra-lote</div><div class="rs-desc">Desde la descarga de la manguera, el agua fluye al canal principal. Tablones de 10&#8211;20 m de ancho. Caballones 40 cm de altura cada 10&#8211;15 m. Compuertas de arcilla o l&#225;mina pl&#225;stica para control de flujo.</div></div></div>
+        <div class="riego-step"><div class="rs-num">5</div><div class="rs-content"><div class="rs-title">Operaci&#243;n y control de l&#225;minas</div><div class="rs-desc">Un jornal/d&#237;a cubre: apertura y cierre de compuertas, verificaci&#243;n de l&#225;minas y lectura de nivel. Motor opera 4&#8211;8 horas seg&#250;n etapa fenol&#243;gica. Registrar horas de operaci&#243;n y combustible consumido.</div></div></div>
+        <div class="riego-step"><div class="rs-num">6</div><div class="rs-content"><div class="rs-title">Mantenimiento del sistema</div><div class="rs-desc">Limpieza de filtros cada 3 d&#237;as (0.25 J). Revisi&#243;n conexiones semanal (0.25 J). Limpieza canales internos: 1 jornal cada 15 d&#237;as. Mantenimiento bordas: mensual (2 J). Total mantenimiento riego: ~10&#8211;12 J/ciclo.</div></div></div>
+      </div>
+    </div>
+
+    <h3 class="sh">Requerimientos de Agua por Etapa Fenol&#243;gica</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>Etapa Fenol&#243;gica</th><th>DDG</th><th>L&#225;mina (cm)</th><th>Frecuencia Riego</th><th>Horas Motor/d&#237;a</th><th>Jornales/semana</th><th>Observaciones</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Germinaci&#243;n (E0)</td><td class="td-ddg">0&#8211;5</td><td>2&#8211;3 cm (suelo h&#250;medo)</td><td>Diario</td><td>2&#8211;3 h</td><td><span class="tag tag-j">2 J</span></td><td>No encharcamiento, solo humedad</td></tr>
+          <tr><td class="td-bold">Pl&#225;ntula (E1)</td><td class="td-ddg">5&#8211;14</td><td>2&#8211;3 cm</td><td>Cada 2 d&#237;as</td><td>3&#8211;4 h</td><td><span class="tag tag-j">2 J</span></td><td>Vigilar desecamiento de la semilla</td></tr>
+          <tr><td class="td-bold">Macollamiento (E2)</td><td class="td-ddg">14&#8211;40</td><td>5&#8211;7 cm</td><td>Cada 3&#8211;4 d&#237;as</td><td>4&#8211;5 h</td><td><span class="tag tag-j">2.5 J</span></td><td>L&#225;mina continua favorece macollamiento</td></tr>
+          <tr><td class="td-bold">Elongaci&#243;n (E3)</td><td class="td-ddg">40&#8211;47</td><td>7&#8211;10 cm</td><td>Cada 2&#8211;3 d&#237;as</td><td>4&#8211;6 h</td><td><span class="tag tag-j">3 J</span></td><td>Incrementar l&#225;mina, mayor demanda</td></tr>
+          <tr><td class="td-bold">Primordio (E4)</td><td class="td-ddg">47&#8211;63</td><td>10 cm</td><td>Continua</td><td>5&#8211;6 h</td><td><span class="tag tag-j">3 J</span></td><td>Cr&#237;tica para N&#176; granos/pan&#237;cula</td></tr>
+          <tr><td class="td-bold">Embuchamiento (E5)</td><td class="td-ddg">63&#8211;70</td><td>10&#8211;12 cm</td><td>Continua/cada 2 d&#237;as</td><td>5&#8211;6 h</td><td><span class="tag tag-j">3 J</span></td><td>M&#225;xima demanda h&#237;drica del ciclo</td></tr>
+          <tr><td class="td-bold">Espigamiento (E6)</td><td class="td-ddg">70&#8211;84</td><td>10 cm</td><td>Continua</td><td>5&#8211;6 h</td><td><span class="tag tag-j">3 J</span></td><td>NO dejar secar durante floraci&#243;n</td></tr>
+          <tr><td class="td-bold">Grano Lechoso (E7)</td><td class="td-ddg">84&#8211;98</td><td>8 cm</td><td>Cada 2&#8211;3 d&#237;as</td><td>4&#8211;5 h</td><td><span class="tag tag-j">2.5 J</span></td><td>Inicio reducci&#243;n gradual de l&#225;mina</td></tr>
+          <tr><td class="td-bold">Grano Pastoso (E8)</td><td class="td-ddg">98&#8211;108</td><td>3&#8211;5 cm</td><td>Cada 4&#8211;5 d&#237;as</td><td>2&#8211;3 h</td><td><span class="tag tag-j">1.5 J</span></td><td>Reducci&#243;n progresiva, inicio drenaje</td></tr>
+          <tr><td class="td-bold">Madurez/Cosecha (E9)</td><td class="td-ddg">108&#8211;120</td><td>0 cm (seco)</td><td>Sin riego</td><td>0 h</td><td><span class="tag tag-j">0 J</span></td><td>Drenaje total 10&#8211;15 d&#237;as antes cosecha</td></tr>
+          <tr style="background:rgba(33,158,188,.08)!important"><td class="td-bold" colspan="5"><b>TOTAL JORNALES DE RIEGO + MANTENIMIENTO</b></td><td><span class="tag tag-j">~55 J</span></td><td>Incluye operaci&#243;n motor + manejo compuertas + mantenimiento</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="riego-diagram" style="margin-top:20px">
+      <h3 class="sh">Especificaciones T&#233;cnicas del Sistema</h3>
+      <div class="etapa-grid-inner">
+        <div class="info-box"><div class="ib-title">Motor 16 Litros</div><ul><li>Cilindrada: ~16 cc (aprox. 5&#8211;7 HP)</li><li>Tipo: monocil&#237;ndrico gasolina/diesel</li><li>Caudal bombeado: 10&#8211;25 L/s</li><li>Altura m&#225;xima: 15&#8211;25 m.c.a.</li><li>Consumo: 1&#8211;2 L combustible/hora</li></ul></div>
+        <div class="info-box"><div class="ib-title">Manguera 2 Pulgadas (50 mm)</div><ul><li>Di&#225;metro nominal: 2&#8243; = 50.8 mm</li><li>Material: PVC flexible o polietileno</li><li>Presi&#243;n de trabajo: 6&#8211;8 bar</li><li>Velocidad del agua: 1.5&#8211;3 m/s</li><li>P&#233;rdida de carga: 2&#8211;5 m/100 m</li></ul></div>
+        <div class="info-box"><div class="ib-title">C&#225;lculo de Riego</div><ul><li>1 ha = 10,000 m&#178;</li><li>L&#225;mina 10 cm = 1,000 m&#179;/ha = 1,000,000 L</li><li>Motor 15 L/s: ~18.5 h para llenar 1 ha</li><li>Riegos parciales: 3&#8211;6 h/riego</li><li>Eficiencia sistema: 60&#8211;70%</li></ul></div>
+        <div class="info-box"><div class="ib-title">Mantenimiento Sistema</div><ul><li>Limpieza filtros: cada 3 d&#237;as (0.25 J)</li><li>Revisi&#243;n conexiones: semanal (0.25 J)</li><li>Limpieza canales: quincenal (1 J)</li><li>Mantenimiento bordas: mensual (2 J)</li><li>Total mantenimiento: ~10&#8211;12 J/ciclo</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 6: JORNALES -->
+  <section id="tab-jornales" class="section">
+    <h2 class="section-title">Resumen de <span>Jornales</span> por Actividad</h2>
+    <p class="section-desc">Todas las labores son 100% manuales con bombas de 20L para aplicaciones y motor 16L + manguera 2&#8243; para riego. Jornales calculados para 1 hect&#225;rea.</p>
+    <div class="jornales-summary">
+      <div class="jornal-stat"><div class="js-num">33</div><div class="js-label">Jornales Pre-siembra</div><div class="js-sub">Suelos, riego, herbicidas, semilla</div></div>
+      <div class="jornal-stat"><div class="js-num">15</div><div class="js-label">Jornales Vegetativa</div><div class="js-sub">Siembra, fertilizaci&#243;n, malezas DDG 0&#8211;47</div></div>
+      <div class="jornal-stat"><div class="js-num">14</div><div class="js-label">Jornales Reproductiva</div><div class="js-sub">Aplicaciones, pajareo DDG 47&#8211;84</div></div>
+      <div class="jornal-stat"><div class="js-num">15</div><div class="js-label">Jornales Maduraci&#243;n</div><div class="js-sub">Pajareo, evaluaci&#243;n, cosecha DDG 84&#8211;120</div></div>
+      <div class="jornal-stat"><div class="js-num">55</div><div class="js-label">Jornales de Riego</div><div class="js-sub">Operaci&#243;n motor + canales (ciclo completo)</div></div>
+      <div class="jornal-stat"><div class="js-num">8.5</div><div class="js-label">Jornales de Monitoreo</div><div class="js-sub">Insectos, enfermedades, malezas</div></div>
+      <div class="jornal-stat"><div class="js-num">10</div><div class="js-label">Jornales de Cosecha</div><div class="js-sub">Corte manual + recolecci&#243;n (1 ha)</div></div>
+      <div class="jornal-stat" style="border-color:var(--amarillo)"><div class="js-num">~150</div><div class="js-label">TOTAL JORNALES/HA</div><div class="js-sub">Ciclo completo 120 d&#237;as (aprox)</div></div>
+    </div>
+    <h3 class="sh">Detalle de Jornales por Actividad</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>Actividad</th><th>DDG</th><th>Jornales/ha</th><th>Herramienta</th><th>Descripci&#243;n del trabajo</th><th>Productividad estimada</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold" colspan="6" style="background:rgba(10,61,92,.3);color:#81d4fa;font-size:11px;letter-spacing:1px">PRE-SIEMBRA</td></tr>
+          <tr><td>Chapeo lote</td><td class="td-ddg">-30</td><td><span class="tag tag-j">4 J</span></td><td>Machete</td><td>Chapeo manual de residuos vegetales</td><td>0.25 ha/jornal</td></tr>
+          <tr><td>Muestreo de suelo</td><td class="td-ddg">-25</td><td><span class="tag tag-j">1 J</span></td><td>Barren&#243;, bolsas</td><td>20 puntos en zigzag por ha</td><td>2&#8211;3 ha/jornal</td></tr>
+          <tr><td>Instalaci&#243;n riego</td><td class="td-ddg">-25</td><td><span class="tag tag-j">3 J</span></td><td>Motor 16L, manguera 2&#8243;</td><td>Tendido manguera, conexiones, prueba</td><td>150&#8211;200 m/jornal</td></tr>
+          <tr><td>Herbicida total</td><td class="td-ddg">-20</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>20 cargas bomba/ha; 1 op. = 20&#8211;25 cargas/d&#237;a</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Arada manual</td><td class="td-ddg">-15</td><td><span class="tag tag-j">6 J</span></td><td>Az&#225;d&#243;n, pala</td><td>Volteo 20&#8211;25 cm profundidad</td><td>0.15&#8211;0.20 ha/jornal</td></tr>
+          <tr><td>Rastrillado y nivelaci&#243;n</td><td class="td-ddg">-12</td><td><span class="tag tag-j">5 J</span></td><td>Rastrillo, az&#225;d&#243;n</td><td>Nivelaci&#243;n con regla y nivel de agua</td><td>0.20 ha/jornal</td></tr>
+          <tr><td>Construcci&#243;n caballones</td><td class="td-ddg">-12</td><td><span class="tag tag-j">3 J</span></td><td>Az&#225;d&#243;n, pala</td><td>Caballones 40 cm h, cada 10&#8211;15 m</td><td>~200 m.l./jornal</td></tr>
+          <tr><td>Construcci&#243;n canales riego</td><td class="td-ddg">-10</td><td><span class="tag tag-j">3 J</span></td><td>Pala, az&#225;d&#243;n</td><td>Canal principal + laterales</td><td>~150 m.l./jornal</td></tr>
+          <tr><td>Encalado</td><td class="td-ddg">-10</td><td><span class="tag tag-j">2 J</span></td><td>Esparciador manual</td><td>200&#8211;500 kg/ha cal dolomita</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Herbicida pre-emergente</td><td class="td-ddg">-3</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>Pendimethalina u Oxifluorfen</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Tratamiento semilla</td><td class="td-ddg">-5</td><td><span class="tag tag-j">1 J</span></td><td>Baldes, mezcladora</td><td>150 kg semilla/ha, fungicida semilla</td><td>300 kg semilla/jornal</td></tr>
+
+          <tr><td class="td-bold" colspan="6" style="background:rgba(46,125,50,.3);color:#a5d6a7;font-size:11px;letter-spacing:1px">FASE VEGETATIVA (DDG 0&#8211;47)</td></tr>
+          <tr><td>Siembra (voleo/surcos)</td><td class="td-ddg">0</td><td><span class="tag tag-j">5 J</span></td><td>Semilla, rastrillo</td><td>150 kg/ha, voleo + tapado</td><td>0.20 ha/jornal</td></tr>
+          <tr><td>Resiembra (si necesaria)</td><td class="td-ddg">8&#8211;10</td><td><span class="tag tag-j">1 J</span></td><td>Semilla pregerminada</td><td>Solo zonas con &lt;80% germinaci&#243;n</td><td>Variable</td></tr>
+          <tr><td>1&#170; Fertilizaci&#243;n N-P-K</td><td class="td-ddg">15</td><td><span class="tag tag-j">2 J</span></td><td>Esparciador manual</td><td>Urea + DAP + KCl al voleo en seco</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Herbicida post-emergente</td><td class="td-ddg">20&#8211;25</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>2,4-D + Metsulfuron</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Monitoreo DDG 22</td><td class="td-ddg">22</td><td><span class="tag tag-j">1 J</span></td><td>Red entom&#243;l&#243;gica, formatos</td><td>5 puntos/ha, red + conteo directo</td><td>2&#8211;3 ha/jornal</td></tr>
+          <tr><td>Riego (macollamiento)</td><td class="td-ddg">14&#8211;40</td><td><span class="tag tag-j">8 J</span></td><td>Motor 16L, mang. 2&#8243;</td><td>2 J/semana, riego + manejo compuertas</td><td>1 ha/jornal</td></tr>
+          <tr><td>2&#170; Fertilizaci&#243;n (Urea)</td><td class="td-ddg">40&#8211;45</td><td><span class="tag tag-j">2 J</span></td><td>Esparciador manual</td><td>150 kg Urea/ha para elongaci&#243;n</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Despalille + mantenimiento bordas</td><td class="td-ddg">40&#8211;45</td><td><span class="tag tag-j">3 J</span></td><td>Machete, az&#225;d&#243;n</td><td>Macollas improductivas + bordas</td><td>0.3 ha/jornal</td></tr>
+
+          <tr><td class="td-bold" colspan="6" style="background:rgba(106,27,154,.3);color:#ce93d8;font-size:11px;letter-spacing:1px">FASE REPRODUCTIVA (DDG 47&#8211;84)</td></tr>
+          <tr><td>Riego reproductivo</td><td class="td-ddg">47&#8211;84</td><td><span class="tag tag-j">12 J</span></td><td>Motor 16L, mang. 2&#8243;</td><td>3 J/semana, l&#225;mina continua 10 cm</td><td>1 ha/jornal</td></tr>
+          <tr><td>Fungicida cuello (obligatorio)</td><td class="td-ddg">63&#8211;65</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>20 cargas/ha; 2 operarios = 1 d&#237;a</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Control chinche (si umbral)</td><td class="td-ddg">65&#8211;68</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>Insecticida espec&#237;fico tarde 16&#8211;18h</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Pajareo &#8211; espigamiento</td><td class="td-ddg">70&#8211;84</td><td><span class="tag tag-j">6 J</span></td><td>Espanta-p&#225;jaros</td><td>Guardia permanente 6h/d&#237;a</td><td>0.5&#8211;1 ha/jornal</td></tr>
+
+          <tr><td class="td-bold" colspan="6" style="background:rgba(191,54,12,.3);color:#ffab91;font-size:11px;letter-spacing:1px">FASE DE MADURACI&#211;N (DDG 84&#8211;120)</td></tr>
+          <tr><td>Riego grano lechoso</td><td class="td-ddg">84&#8211;98</td><td><span class="tag tag-j">7 J</span></td><td>Motor 16L</td><td>2.5 J/semana, reducci&#243;n progresiva</td><td>1 ha/jornal</td></tr>
+          <tr><td>Fungicida manchas (condicional)</td><td class="td-ddg">90</td><td><span class="tag tag-j">2 J</span></td><td>Bomba 20L</td><td>Solo si incidencia &gt;20% pan&#237;culas</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Pajareo &#8211; maduraci&#243;n</td><td class="td-ddg">84&#8211;112</td><td><span class="tag tag-j">6 J</span></td><td>Espanta-p&#225;jaros</td><td>Guardia permanente</td><td>0.5 ha/jornal</td></tr>
+          <tr><td>Evaluaci&#243;n pre-cosecha</td><td class="td-ddg">108&#8211;112</td><td><span class="tag tag-j">1 J</span></td><td>Higr&#243;metro, formatos</td><td>% humedad, % granos llenos</td><td>2&#8211;3 ha/jornal</td></tr>
+          <tr><td>Cosecha manual</td><td class="td-ddg">115&#8211;120</td><td><span class="tag tag-j">10 J</span></td><td>Hoces, costales</td><td>Corte + recolecci&#243;n + transporte interno</td><td>0.10 ha/jornal</td></tr>
+          <tr><td>Mantenimiento canales (ciclo)</td><td class="td-ddg">Variable</td><td><span class="tag tag-j">8 J</span></td><td>Pala, az&#225;d&#243;n</td><td>1 jornal cada 15 d&#237;as (ciclo 120 d&#237;as)</td><td>200 m.l./jornal</td></tr>
+
+          <tr style="background:rgba(249,199,79,.1)!important;font-weight:700">
+            <td class="td-bold">TOTAL GENERAL</td><td></td>
+            <td><span class="tag tag-j" style="font-size:13px;padding:4px 12px">~150 J/ha</span></td>
+            <td colspan="3" style="color:var(--amarillo)">Ciclo completo 120 d&#237;as &#8211; Labores 100% manuales</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:20px;padding:18px 20px;background:rgba(249,199,79,.07);border:1px solid rgba(249,199,79,.25);border-radius:10px">
+      <h4 style="color:var(--amarillo);margin-bottom:10px;font-family:'Outfit',sans-serif">Nota sobre Rendimiento de Bomba de 20 Litros</h4>
+      <p style="color:var(--text-secondary);font-size:13px;line-height:1.7">Una <strong style="color:#fff">bomba de mochila de 20 litros</strong> aplica aproximadamente <strong style="color:#fff">200&#8211;400 L/ha</strong> de caldo (10&#8211;20 cargas). Un operario completa <strong style="color:#fff">20&#8211;25 cargas/jornal</strong> dependiendo del terreno y distancias. La aplicaci&#243;n para 1 ha requiere <strong style="color:#fff">1&#8211;2 jornales</strong> con bomba de 20L. Con 2 operarios simult&#225;neos se cubre 1 ha en 1 d&#237;a de trabajo.</p>
+    </div>
+  </section>
+
+  <!-- TAB 7: INSUMOS -->
+  <section id="tab-insumos" class="section">
+    <h2 class="section-title">Insumos, <span>Fertilizaci&#243;n y Agroquimicos</span></h2>
+    <p class="section-desc">Programa de fertilizaci&#243;n e insumos seg&#250;n metodolog&#237;a AMTEC para arroz de riego. Las dosis deben ajustarse seg&#250;n an&#225;lisis de suelo y condiciones del cultivo.</p>
+
+    <h3 class="sh">Programa de Fertilizaci&#243;n</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>Aplicaci&#243;n</th><th>DDG</th><th>Estad&#237;o</th><th>Producto</th><th>Dosis/ha</th><th>N-P-K aportado</th><th>M&#233;todo</th><th>Jornales</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Correcci&#243;n Base</td><td class="td-ddg">-10</td><td>Pre-siembra</td><td>Cal Dolomita</td><td>200&#8211;500 kg/ha</td><td>Ca + Mg</td><td>Voleo manual, incorporar</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td class="td-bold">1&#170; Fertilizaci&#243;n</td><td class="td-ddg">15&#8211;18</td><td>E2 Macollamiento</td><td>Urea 46%N + DAP 18-46-0 + KCl 0-0-60</td><td>100 kg Urea + 100 kg DAP + 50 kg KCl</td><td>N: 64 kg | P: 46 kg | K: 30 kg</td><td>Voleo en seco, suelo sin encharcamiento</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td class="td-bold">2&#170; Fertilizaci&#243;n</td><td class="td-ddg">40&#8211;45</td><td>E3 Elongaci&#243;n</td><td>Urea 46%N</td><td>150 kg/ha</td><td>N: 69 kg</td><td>Voleo en seco, m&#237;nima l&#225;mina</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td class="td-bold">3&#170; Fertilizaci&#243;n (opcional)</td><td class="td-ddg">55&#8211;60</td><td>E4 Primordio</td><td>Foliar N + micronutrientes</td><td>2&#8211;3 L/ha foliar</td><td>N + Zn + B</td><td>Aspersi&#243;n bomba 20L</td><td><span class="tag tag-j">1 J</span></td></tr>
+          <tr style="background:rgba(76,175,117,.06)!important"><td class="td-bold" colspan="4">TOTALES (sin correcci&#243;n pH)</td><td><b>~400 kg insumos/ha</b></td><td>N: 133 kg | P: 46 kg | K: 30 kg</td><td colspan="2"><span class="tag tag-j">7 J total</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sh" style="margin-top:28px">Programa de Manejo Fitosanitario</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead><tr><th>Aplicaci&#243;n</th><th>DDG</th><th>Estad&#237;o</th><th>Producto(s)</th><th>Dosis/ha</th><th>Objetivo</th><th>Condici&#243;n</th><th>Jornales</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold" colspan="8" style="background:rgba(139,195,74,.12);color:#ccff90;font-size:11px">HERBICIDAS</td></tr>
+          <tr><td>Herbicida total pre-siembra</td><td class="td-ddg">-20</td><td>Pre-siembra</td><td>Glifosato 48%</td><td>3 L/ha</td><td>Malezas perennes y anuales</td><td>Malezas activas, no lluvia 6h</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td>Pre-emergente</td><td class="td-ddg">-3</td><td>Pre-siembra</td><td>Pendimethalina 50% o Oxifluorfen</td><td>2 L/ha</td><td>Prevenir emergencia malezas</td><td>Suelo h&#250;medo, incorporar con agua</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td>Post-emergente temprano</td><td class="td-ddg">20&#8211;22</td><td>E2 Macollamiento</td><td>2,4-D amina + Metsulfuron Metil</td><td>1 L/ha + 15 g/ha</td><td>Hoja ancha y gram&#237;neas peque&#241;as</td><td>Arroz con 3&#8211;4 hojas, sin lluvia 4h</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td>Post-emergente tard&#237;o (si necesario)</td><td class="td-ddg">30&#8211;35</td><td>E2 Macollamiento</td><td>Bispiribac-Sodio o Cyhalofop</td><td>200 cc/ha</td><td>Arroz rojo y gram&#237;neas dif&#237;ciles</td><td>Solo si escapa control previo</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td class="td-bold" colspan="8" style="background:rgba(33,158,188,.12);color:#80d8ff;font-size:11px">FUNGICIDAS</td></tr>
+          <tr><td>Fungicida semilla</td><td class="td-ddg">-5</td><td>Pre-siembra</td><td>Carbendazim + Thiram</td><td>2 g/kg semilla</td><td>Damping-off, Pyricularia pl&#225;ntula</td><td>Antes de pregerminaci&#243;n</td><td><span class="tag tag-j">0.5 J</span></td></tr>
+          <tr><td>Fungicida foliar (condicional)</td><td class="td-ddg">30</td><td>E2 Macollamiento</td><td>Propiconazol o Azoxistrobina</td><td>500 cc/ha</td><td>Pyricularia foliar, Helminthosporium</td><td>Si incidencia &gt;10% &#225;rea foliar</td><td><span class="tag tag-j">1&#8211;2 J</span></td></tr>
+          <tr style="border:2px solid #e63946!important"><td class="td-bold">&#9888;&#65039; Fungicida cuello (OBLIGATORIO)</td><td class="td-ddg">63&#8211;65</td><td>E5 Embuchamiento</td><td>Azoxistrobina 200cc + Propiconazol 250cc o Trifloxistrobina+Propiconazol</td><td>Mezcla/ha</td><td>Pyricularia de cuello (m&#225;xima p&#233;rdida)</td><td>Inicio embuchamiento, temp &gt;20&#176;C</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td>Fungicida grano lechoso (cond.)</td><td class="td-ddg">88&#8211;92</td><td>E7 Lechoso</td><td>Difenoconazol + Propiconazol</td><td>250 cc/ha</td><td>Manchas del grano</td><td>Solo si incidencia &gt;20% pan&#237;culas</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td class="td-bold" colspan="8" style="background:rgba(230,57,70,.12);color:#ff8a80;font-size:11px">INSECTICIDAS (Solo si supera umbral)</td></tr>
+          <tr><td>Control Sogata (si umbral)</td><td class="td-ddg">20&#8211;40</td><td>E2 Macollamiento</td><td>Imidacloprid 350cc/ha o Thiamethoxam</td><td>350 cc/ha</td><td>Sogata + virus HB</td><td>Si &gt;1 ninfa/macollo en &gt;20% plantas</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td>Control Diatraea (si umbral)</td><td class="td-ddg">30&#8211;45</td><td>E2-E3</td><td>Clorpirifos 1L/ha o Profenofos</td><td>1 L/ha</td><td>Berer/cogollero</td><td>Si &gt;5% tallos con coraz&#243;n muerto</td><td><span class="tag tag-j">2 J</span></td></tr>
+          <tr><td>Control Chinche (si umbral)</td><td class="td-ddg">65&#8211;100</td><td>E5-E7</td><td>Lambda-cihalotrina 200cc/ha o Diazinon</td><td>200 cc/ha</td><td>Chinche del arroz</td><td>Si &gt;1 adulto/m&#178;. Aplicar tarde (16&#8211;18h)</td><td><span class="tag tag-j">2 J</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:20px">
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#9888;&#65039;</span><div><div class="ic-title">Principios MIP &#8211; AMTEC</div><div class="ic-sub">Manejo Integrado de Plagas</div></div></div><ul><li>Monitoreo antes de decidir aplicar</li><li>Aplicar SOLO si supera umbral econ&#243;mico</li><li>Priorizar control biol&#243;gico y cultural</li><li>Rotar mecanismos de acci&#243;n (evitar resistencia)</li><li>Respetar per&#237;odos de carencia</li><li>Usar EPP completo en todas las aplicaciones</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#127807;</span><div><div class="ic-title">Control Biol&#243;gico</div><div class="ic-sub">Alternativa a insecticidas</div></div></div><ul><li>Trichogramma sp. para control de lep.  id&#243;pteros</li><li>Beauveria bassiana para Sogata</li><li>Conservar ara&#241;as y parasitoides naturales</li><li>Aves controladores (garza bueyera)</li><li>No aplicar insecticidas sin umbral superado</li></ul></div>
+      <div class="info-card"><div class="ic-header"><span class="ic-icon">&#128230;</span><div><div class="ic-title">Semilla Certificada</div><div class="ic-sub">Base del &#233;xito productivo</div></div></div><ul><li>Usar semilla certificada Fedearroz</li><li>150 kg/ha para siembra directa al voleo</li><li>Prueba germinaci&#243;n: m&#237;nimo 85%</li><li>Variedades recomendadas: FL 369, Fedearroz 67</li><li>Pregerminaci&#243;n: 24&#8211;36h en agua</li></ul></div>
+    </div>
+  </section>
+
+
+  <!-- TAB 8: TELEDETECCION Y SIG -->
+  <section id="tab-sig" class="section">
+    <h2 class="section-title">Estudios con <span>SIG e Im&#225;genes Satelitales</span> en Arroz</h2>
+    <p class="section-desc">Integraci&#243;n de sensores remotos (Sentinel-2, Sentinel-1 Radar SAR, Landsat y Drones) con QGIS para diagn&#243;stico precoz de vigor, nutrici&#243;n nitrogenada, estr&#233;s h&#237;drico y anomal&#237;as fitosanitarias seg&#250;n la metodolog&#237;a de Agricultura de Precisi&#243;n AMTEC (Cartilla 5).</p>
+
+    <div class="jornales-summary" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));">
+      <div class="jornal-stat"><div class="js-num" style="font-size:24px;color:var(--verde-claro)">Sentinel-2</div><div class="js-label">10-20 m &#183; Cada 5 d&#237;as</div><div class="js-sub">13 bandas &#183; VNIR, RedEdge y SWIR</div></div>
+      <div class="jornal-stat"><div class="js-num" style="font-size:24px;color:var(--azul)">Sentinel-1 (SAR)</div><div class="js-label">Radar Banda C &#183; 10 m</div><div class="js-sub">Penetra nubes 100% &#183; Polarimetr&#237;a VV / VH</div></div>
+      <div class="jornal-stat"><div class="js-num" style="font-size:24px;color:var(--amarillo)">QGIS / GPKG</div><div class="js-label">Plataforma de Cruce</div><div class="js-sub">Monitoreo_Arroz.qgz + KoboCollect</div></div>
+      <div class="jornal-stat"><div class="js-num" style="font-size:24px;color:var(--naranja)">Drones / UAV</div><div class="js-label">Alta resoluci&#243;n (&lt;5 cm)</div><div class="js-sub">Conteo de pl&#225;ntulas y micro-relieve</div></div>
+    </div>
+
+    <h3 class="sh">1. Cat&#225;logo de &#205;ndices Espectrales y Estudios Satelitales</h3>
+    <div class="monitor-grid">
+      <div class="monitor-card">
+        <div class="monitor-card-header"><div class="monitor-icon" style="background:rgba(76,175,117,.2);color:#81c784;">&#127807;</div><div><div class="mc-name">NDVI &#8211; Diferencia Normalizada de Vegetaci&#243;n</div><div class="mc-sci">(NIR - Red) / (NIR + Red) &#183; Sentinel-2 B8 y B4</div></div></div>
+        <div class="monitor-card-body">
+          <div class="threshold-bar"><div class="tb-label">Objetivo Principal</div><div class="tb-value">Vigor vegetativo, biomasa verde y cobertura</div><div class="tb-method">Identifica fallas de germinaci&#243;n (E0-E1) y din&#225;mica de macollamiento.</div></div>
+          <div class="threshold-bar"><div class="tb-label">Limitaci&#243;n AMTEC</div><div class="tb-value">Saturaci&#243;n (&gt;0.80) en dosel cerrado</div><div class="tb-method">En pleno macollamiento y embuchamiento pierde sensibilidad a nuevo nitr&#243;geno.</div></div>
+          <div class="monitor-stages"><span class="td-phase ph-veg">E0-E2 (Cr&#237;tico)</span></div>
+        </div>
+      </div>
+
+      <div class="monitor-card">
+        <div class="monitor-card-header"><div class="monitor-icon" style="background:rgba(249,199,79,.2);color:var(--amarillo);">&#9889;</div><div><div class="mc-name">NDRE &#8211; Normalized Difference Red Edge</div><div class="mc-sci">(NIR - RedEdge) / (NIR + RedEdge) &#183; B8 y B5/B6</div></div></div>
+        <div class="monitor-card-body">
+          <div class="threshold-bar"><div class="tb-label">Objetivo Principal</div><div class="tb-value">Contenido de Clorofila y Nitr&#243;geno Foliar</div><div class="tb-method">La banda Red Edge penetra el dosel denso sin saturarse.</div></div>
+          <div class="threshold-bar"><div class="tb-label">Toma de Decisiones</div><div class="tb-value">Ajuste de dosis en 2&#170; y 3&#170; abonada (DDS 35 y 50)</div><div class="tb-method">Generaci&#243;n de mapas de fertilizaci&#243;n nitrogenada variable por zonas.</div></div>
+          <div class="monitor-stages"><span class="td-phase ph-veg">E2-E3</span><span class="td-phase ph-rep">E4-E5 (Indispensable)</span></div>
+        </div>
+      </div>
+
+      <div class="monitor-card">
+        <div class="monitor-card-header"><div class="monitor-icon ic-disease">&#128167;</div><div><div class="mc-name">NDWI / LSWI &#8211; Contenido de Agua en Hoja</div><div class="mc-sci">(NIR - SWIR) / (NIR + SWIR) &#183; B8A y B11/B12</div></div></div>
+        <div class="monitor-card-body">
+          <div class="threshold-bar"><div class="tb-label">Objetivo Principal</div><div class="tb-value">Detecci&#243;n Precoz de Estr&#233;s H&#237;drico</div><div class="tb-method">Sensible al volumen de agua en el mes&#243;filo foliar.</div></div>
+          <div class="threshold-bar"><div class="tb-label">Alerta Temprana</div><div class="tb-value">Detecta estr&#233;s 3 a 5 d&#237;as antes del s&#237;ntoma visual</div><div class="tb-method">Permite priorizar turnos de bombeo con motor 16L en sectores cr&#237;ticos.</div></div>
+          <div class="monitor-stages"><span class="td-phase ph-rep">E4-E6 (Fase Reproductiva)</span></div>
+        </div>
+      </div>
+
+      <div class="monitor-card">
+        <div class="monitor-card-header"><div class="monitor-icon" style="background:rgba(33,158,188,.2);color:#81d4fa;">&#127754;</div><div><div class="mc-name">MNDWI &#8211; Monitoreo de L&#225;mina de Agua</div><div class="mc-sci">(Green - SWIR) / (Green + SWIR) &#183; B3 y B11</div></div></div>
+        <div class="monitor-card-body">
+          <div class="threshold-bar"><div class="tb-label">Objetivo Principal</div><div class="tb-value">Delimitaci&#243;n de Tablones Inundados vs. Secos</div><div class="tb-method">Mapea si el agua conducida con manguera 2" cubre todo el lote.</div></div>
+          <div class="threshold-bar"><div class="tb-label">Utilidad AMTEC</div><div class="tb-value">Detecta caballones rotos y lomas secas</div><div class="tb-method">Garantiza ambiente h&#237;drico homog&#233;neo para los fertilizantes y herbicidas.</div></div>
+          <div class="monitor-stages"><span class="td-phase ph-veg">E0-E6</span></div>
+        </div>
+      </div>
+
+      <div class="monitor-card">
+        <div class="monitor-card-header"><div class="monitor-icon" style="background:rgba(230,57,70,.2);color:#ff8a80;">&#128225;</div><div><div class="mc-name">Radar SAR Sentinel-1 (VV, VH, Ratio VH/VV)</div><div class="mc-sci">Microondas Banda C (5.4 GHz) en retrodispersi&#243;n (dB)</div></div></div>
+        <div class="monitor-card-body">
+          <div class="threshold-bar"><div class="tb-label">Mayor Ventaja</div><div class="tb-value">100% Inmune a Nubes y Lluvia</div><div class="tb-method">Resuelve el problema de nubosidad cr&#243;nica en el cultivo de arroz.</div></div>
+          <div class="threshold-bar"><div class="tb-label">Firma Temporal del Arroz</div><div class="tb-value">Inundaci&#243;n: baja se&#241;al | Macollamiento/Espigamiento: alta VH</div><div class="tb-method">Monitoreo continuo de biomasa y fechas fenol&#243;gicas sin depender del sol.</div></div>
+          <div class="monitor-stages"><span class="td-phase ph-pre">Todo el Ciclo (Indispensable)</span></div>
+        </div>
+      </div>
+
+      <div class="monitor-card">
+        <div class="monitor-card-header"><div class="monitor-icon" style="background:rgba(239,108,0,.2);color:#ffb74d;">&#129656;</div><div><div class="mc-name">PSRI &#8211; &#205;ndice de Senescencia y Estr&#233;s Fitosanitario</div><div class="mc-sci">(Red - Blue) / RedEdge &#183; B4, B2 y B5</div></div></div>
+        <div class="monitor-card-body">
+          <div class="threshold-bar"><div class="tb-label">Objetivo Principal</div><div class="tb-value">Alerta Temprana de Hongos y Maduraci&#243;n</div><div class="tb-method">Mide degradaci&#243;n de clorofila y aumento relativo de carotenoides.</div></div>
+          <div class="threshold-bar"><div class="tb-label">Detecci&#243;n An&#243;mala</div><div class="tb-value">Focos de Pyricularia y Rhizoctonia antes de necrosis visible</div><div class="tb-method">Focaliza inspecciones con KoboCollect en campo evitando p&#233;rdidas de rendimiento.</div></div>
+          <div class="monitor-stages"><span class="td-phase ph-rep">E4-E6 (Focos)</span><span class="td-phase ph-mad">E7-E9 (Madurez)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sh" style="margin-top:28px">2. Calendario de Estudios Satelitales por Etapa Fenol&#243;gica</h3>
+    <div class="crono-wrapper">
+      <table class="crono-table">
+        <thead>
+          <tr>
+            <th>Etapa Fenol&#243;gica</th>
+            <th>DDS / DDG</th>
+            <th>Estudio / &#205;ndice Satelital</th>
+            <th>Sensor Recomendado</th>
+            <th>Decisi&#243;n Agron&#243;mica Derivada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">Pre-siembra y Adecuaci&#243;n</td>
+            <td class="td-ddg">DDS -30 a -5</td>
+            <td>MDT / Curvas de nivel + &#205;ndice TWI</td>
+            <td>SRTM / ALOS PALSAR / Dron</td>
+            <td>Dise&#241;o de caballones cada 10-15 m y trazado de manguera 2" seg&#250;n cotas.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Emergencia / Pl&#225;ntula (E0-E1)</td>
+            <td class="td-ddg">DDS 5 a 14</td>
+            <td>SAVI / MSAVI (ajustado por suelo) + SAR VV</td>
+            <td>Sentinel-2 (B4, B8) o PlanetScope</td>
+            <td>Mapeo de fallas de germinaci&#243;n (&lt;180 pl/m&#178;) para resiembra dirigida por parches.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Macollamiento Temprano (E2)</td>
+            <td class="td-ddg">DDS 15 a 25</td>
+            <td>NDVI + MNDWI (l&#225;mina de agua)</td>
+            <td>Sentinel-2 / Sentinel-1</td>
+            <td>Evaluar respuesta a 1&#170; abonada (07-Oct). Verificar cobertura uniforme de agua.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Pleno Macollamiento (E2-E3)</td>
+            <td class="td-ddg">DDS 30 a 40</td>
+            <td>NDRE (clorofila) + An&#225;lisis de Variabilidad</td>
+            <td>Sentinel-2 (B5, B6, B8)</td>
+            <td>Zonificaci&#243;n para 2&#170; abonada (17-Oct). Mapeo de escapes de malezas post-Propanil.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Iniciaci&#243;n Panicular (E4 - Punto Algod&#243;n)</td>
+            <td class="td-ddg">DDS 50 a 55</td>
+            <td>NDRE + LSWI (estr&#233;s h&#237;drico)</td>
+            <td>Sentinel-2 + Sentinel-1</td>
+            <td>Prescripci&#243;n de 3&#170; abonada. Garantizar que ning&#250;n sector sufra estr&#233;s h&#237;drico.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Embuchamiento y Bota (E5)</td>
+            <td class="td-ddg">DDS 63 a 68</td>
+            <td>PSRI + Anomal&#237;as de Reflectancia NIR</td>
+            <td>Sentinel-2 / Sentinel-1</td>
+            <td>Focos de Pyricularia foliar/cuello. Dirigir muestreo de campo y calibrar fungicida preventivo.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Floraci&#243;n y Llenado (E6-E7)</td>
+            <td class="td-ddg">DDS 75 a 90</td>
+            <td>Retrodispersi&#243;n SAR VH + LSWI</td>
+            <td>Sentinel-1 (SAR) + Sentinel-2</td>
+            <td>Seguimiento de biomasa de espigas y volumen reproductivo sin limitaci&#243;n por nubes.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Madurez y Pre-Cosecha (E8-E9)</td>
+            <td class="td-ddg">DDS 100 a 115</td>
+            <td>GNDVI + PSRI (curva de desecaci&#243;n foliar)</td>
+            <td>Sentinel-2</td>
+            <td>Determinar fecha exacta de corte de agua y ordenar cuadrillas de cosecha manual por sectores.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="riego-diagram" style="margin-top:24px">
+      <h3 class="sh">3. Flujo de Trabajo e Integraci&#243;n en QGIS</h3>
+      <div class="riego-steps">
+        <div class="riego-step">
+          <div class="rs-num">1</div>
+          <div class="rs-content">
+            <div class="rs-title">Descarga de Im&#225;genes (Copernicus Browser / Google Earth Engine)</div>
+            <div class="rs-desc">Descargar productos L2A (reflectancia de superficie - BOA) de Sentinel-2 para el pol&#237;gono del lote. En semanas nubladas, descargar productos Sentinel-1 SAR GRD banda C.</div>
+          </div>
+        </div>
+        <div class="riego-step">
+          <div class="rs-num">2</div>
+          <div class="rs-content">
+            <div class="rs-title">C&#225;lculo de &#205;ndices en QGIS (Calculadora Raster)</div>
+            <div class="rs-desc">NDVI: <code>("B08@1" - "B04@1") / ("B08@1" + "B04@1")</code> | NDRE: <code>("B08@1" - "B05@1") / ("B08@1" + "B05@1")</code> | LSWI: <code>("B8A@1" - "B11@1") / ("B8A@1" + "B11@1")</code>. Aplicar rampa espectral invertida RdYlGn (Rojo = bajo vigor, Verde = &#243;ptimo).</div>
+          </div>
+        </div>
+        <div class="riego-step">
+          <div class="rs-num">3</div>
+          <div class="rs-content">
+            <div class="rs-title">Cruce con Capas de Monitoreo KoboCollect (Geopackage)</div>
+            <div class="rs-desc">Cargar los puntos de muestreo de <code>Datos_Monitoreo_Arroz.gpkg</code> sobre el proyecto <code>Monitoreo_Arroz.qgz</code>. Cruzar espacialmente los focos de Sogata, corazones muertos de Diatraea y malezas con los sectores de bajo NDVI/NDRE.</div>
+          </div>
+        </div>
+        <div class="riego-step">
+          <div class="rs-num">4</div>
+          <div class="rs-content">
+            <div class="rs-title">Mapas de Prescripci&#243;n y Zonificaci&#243;n de Manejo</div>
+            <div class="rs-desc">Clasificar el lote en 3 zonas homog&#233;neas de manejo. Exportar mapas tem&#225;ticos en PDF con leyenda, norte, escala y las recomendaciones agron&#243;micas precisas para el productor arrocero.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Cronograma elaborado con base en documentaci&#243;n t&#233;cnica <strong>AMTEC &#8211; Fedearroz</strong> | Manejo Integrado del Cultivo de Arroz</p>
+  <p style="margin-top:6px;opacity:.7">Desarrollado para asistencia t&#233;cnica integral &#8211; Variedades 105&#8211;120 d&#237;as | Labores 100% manuales con bomba 20L y motor 16L + manguera 2&#8243;</p>
+  <p style="margin-top:6px;opacity:.5;font-size:11px">Agosto 2026 | Los valores de jornales y dosis son referenciales; ajustar seg&#250;n condiciones locales, variedad y an&#225;lisis de suelo.</p>
+</footer>
+
+<script>
+  function showTab(tabId, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function toggleE(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  // Open first by default
+  document.getElementById('e0').classList.add('open');
+</script>
+</body>
+</html>
